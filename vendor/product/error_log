@@ -1,0 +1,20 @@
+[09-Jun-2021 05:43:58 UTC] PHP Warning:  Undefined array key "id" in /home/indovica/public_html/vendor/product/load_data.php on line 3
+[09-Jun-2021 05:43:58 UTC] PHP Warning:  Undefined array key "id" in /home/indovica/public_html/vendor/product/load_data.php on line 3
+[09-Jun-2021 05:44:01 UTC] PHP Warning:  Undefined array key "role" in /home/indovica/public_html/vendor/header.php on line 4
+[09-Jun-2021 05:44:01 UTC] PHP Warning:  Undefined variable $nama in /home/indovica/public_html/vendor/header.php on line 94
+[09-Jun-2021 09:54:07 UTC] PHP Warning:  Undefined array key "role" in /home/indovica/public_html/vendor/header.php on line 4
+[09-Jun-2021 09:54:07 UTC] PHP Warning:  Undefined variable $nama in /home/indovica/public_html/vendor/header.php on line 94
+[01-Jul-2021 07:45:13 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "content" in /home/indovica/public_html/vendor/product/term.php:52
+Stack trace:
+#0 {main}
+  thrown in /home/indovica/public_html/vendor/product/term.php on line 52
+[01-Jul-2021 07:56:43 UTC] PHP Warning:  Undefined variable $category in /home/indovica/public_html/vendor/product/tambah.php on line 17
+[01-Jul-2021 07:56:43 UTC] PHP Warning:  Undefined variable $owner in /home/indovica/public_html/vendor/product/tambah.php on line 17
+[01-Jul-2021 07:57:20 UTC] PHP Warning:  Undefined variable $category in /home/indovica/public_html/vendor/product/tambah.php on line 17
+[01-Jul-2021 07:57:20 UTC] PHP Warning:  Undefined variable $owner in /home/indovica/public_html/vendor/product/tambah.php on line 17
+[01-Jul-2021 07:59:30 UTC] PHP Warning:  Undefined variable $category in /home/indovica/public_html/vendor/product/tambah.php on line 17
+[01-Jul-2021 07:59:30 UTC] PHP Warning:  Undefined variable $owner in /home/indovica/public_html/vendor/product/tambah.php on line 17
+[01-Jul-2021 08:01:57 UTC] PHP Warning:  Undefined variable $category in /home/indovica/public_html/vendor/product/tambah.php on line 17
+[01-Jul-2021 08:01:57 UTC] PHP Warning:  Undefined variable $owner in /home/indovica/public_html/vendor/product/tambah.php on line 17
+[01-Jul-2021 10:21:34 UTC] PHP Warning:  Undefined array key "role" in /home/indovica/public_html/vendor/header.php on line 4
+[01-Jul-2021 10:21:34 UTC] PHP Warning:  Undefined variable $nama in /home/indovica/public_html/vendor/header.php on line 96

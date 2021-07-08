@@ -1,0 +1,4 @@
+[02-Jul-2021 06:53:47 UTC] PHP Warning:  Undefined array key "role" in /home/indovica/public_html/admin/header.php on line 4
+[02-Jul-2021 06:53:47 UTC] PHP Warning:  Undefined variable $nama in /home/indovica/public_html/admin/header.php on line 98
+[07-Jul-2021 07:02:26 UTC] PHP Warning:  Undefined array key "role" in /home/indovica/public_html/admin/header.php on line 4
+[07-Jul-2021 07:02:26 UTC] PHP Warning:  Undefined variable $nama in /home/indovica/public_html/admin/header.php on line 98
