@@ -1,8 +1,7 @@
 <?php
-
 session_start();
 if($_SESSION['role'] != 'admin'){
-    echo '<script>document.location.href="'.$base_url.'admin-login/index.php"</script>';
+    echo '<script>document.location.href="'.$base_url.'/admin-login/index.php"</script>';
 }else{
 	$nama = $_SESSION['name'];
 }
@@ -47,14 +46,14 @@ if($_SESSION['role'] != 'admin'){
 	<script src="<?=$base_url?>/global_assets/js/demo_pages/dashboard.js"></script>
 	
 	<script src="<?=$base_url?>/global_assets/js/plugins/notifications/sweet_alert.min.js"></script>
+
 	<script src="<?=$base_url?>/global_assets/js/plugins/forms/styling/uniform.min.js"></script>
 	<script src="<?=$base_url?>/global_assets/js/plugins/forms/styling/switchery.min.js"></script>
 	<script src="<?=$base_url?>/global_assets/js/plugins/forms/styling/switch.min.js"></script>
 	<script src="<?=$base_url?>/global_assets/js/plugins/forms/selects/select2.min.js"></script>
 	
 	<script src="<?=$base_url?>/global_assets/js/plugins/editors/ckeditor/ckeditor.js"></script>
-	
-	<script src="<?=$base_url?>/global_assets/js/demo_pages/editor_ckeditor_default.js"></script>
+	<!-- <script src="<?=$base_url?>/global_assets/js/demo_pages/editor_ckeditor_default.js"></script> -->
 	<!-- /theme JS files -->
 
 </head>
@@ -99,7 +98,11 @@ if($_SESSION['role'] != 'admin'){
 					</a>
 
 					<div class="dropdown-menu dropdown-menu-right">
-					
+						<a href="#" class="dropdown-item"><i class="icon-user-plus"></i> My profile</a>
+						<a href="#" class="dropdown-item"><i class="icon-coins"></i> My balance</a>
+						<a href="#" class="dropdown-item"><i class="icon-comment-discussion"></i> Messages <span class="badge badge-pill bg-blue ml-auto">58</span></a>
+						<div class="dropdown-divider"></div>
+						<a href="#" class="dropdown-item"><i class="icon-cog5"></i> Account settings</a>
 						<a href="<?=$base_url?>/logout.php" class="dropdown-item"><i class="icon-switch2"></i> Logout</a>
 					</div>
 				</li>
@@ -141,7 +144,7 @@ if($_SESSION['role'] != 'admin'){
 							</div>
 
 							<div class="media-body">
-									<img src="<?=$base_url?>/global_assets/images/logo3.png" alt="" style="max-width:200px">
+							<img src="<?=$base_url?>/global_assets/images/logo3.png" alt="" style="max-width:200px">
 							</div>
 
 							<div class="ml-3 align-self-center">
@@ -160,7 +163,7 @@ if($_SESSION['role'] != 'admin'){
 						<!-- Main -->
 						<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu" title="Main"></i></li>
 						<li class="nav-item">
-							<a href="<?=$admin_url?>/index.php" class="nav-link">
+							<a href="<?=$admin_url?>/index.php" class="nav-link" id="nav-dashboard">
 								<i class="icon-home4"></i>
 								<span>
 									Dashboard
@@ -168,28 +171,28 @@ if($_SESSION['role'] != 'admin'){
 							</a>
 						</li>
 						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Vendor</span></a>
+							<a href="#" class="nav-link" id="nav-product"><i class="icon-copy"></i> <span>Product</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="<?=$admin_url?>/vendor/index.php" class="nav-link">List Vendor</a></li>
-							
-							</ul>
-						</li>
-						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Product</span></a>
-
-							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-							    	<li class="nav-item"><a href="<?=$admin_url?>/category" class="nav-link">Category</a></li>
+								<li class="nav-item"><a href="<?=$admin_url?>/category/index.php" class="nav-link">Category</a></li>
 								<li class="nav-item"><a href="<?=$admin_url?>/product/index.php" class="nav-link">Product</a></li>
 							
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link"><i class="icon-list"></i> <span>Article</span></a>
+							<a href="#" class="nav-link" id="nav-article"><i class="icon-list"></i> <span>article</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="<?=$admin_url?>/article/input.php" class="nav-link">Input Article</a></li>
-								<li class="nav-item"><a href="<?=$admin_url?>/article/index.php" class="nav-link">List Article</a></li>
+								<li class="nav-item"><a href="<?=$admin_url?>/article/input.php" class="nav-link">Input article</a></li>
+								<li class="nav-item"><a href="<?=$admin_url?>/article/index.php" class="nav-link">List article</a></li>
+							
+							</ul>
+						</li>
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link" id="nav-article"><i class="icon-list"></i> <span>transaction</span></a>
+
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="<?=$admin_url?>/transaction/index.php" class="nav-link">List transaction</a></li>
 							
 							</ul>
 						</li>
@@ -202,11 +205,18 @@ if($_SESSION['role'] != 'admin'){
 								<li class="nav-item"><a href="<?=$admin_url?>/config/term.php" class="nav-link">Term & Condition (Customer)</a></li>
 								<li class="nav-item"><a href="<?=$admin_url?>/config/term1.php" class="nav-link">Term & Condition (Vendor - Mutlak)</a></li>
 								<li class="nav-item"><a href="<?=$admin_url?>/config/term2.php" class="nav-link">Term & Condition (Vendor - Umum)</a></li>
-								<li class="nav-item"><a href="<?=$admin_url?>/currency/index.php" class="nav-link">Currency</a></li>
 							 
 							</ul>
 						</li>
-					
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link" id="nav-article"><i class="icon-money"></i> <span>Currency</span></a>
+
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="<?=$admin_url?>/currency/index.php" class="nav-link">Currency</a></li>
+								
+							 
+							</ul>
+						</li>
 
 					</ul>
 				</div>
