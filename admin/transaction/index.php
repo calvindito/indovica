@@ -3,7 +3,7 @@
 include '../../connection.php';
 include '../header.php' ;
 
-$transaction = mysqli_query($conn,"SELECT transaction.*, customer.fullname, address.address from transaction join customer on customer.id = customer_id join address on address.id = address_id");
+$transaction = mysqli_query($conn,"SELECT `transaction`.*, customeronline.fullname, address.address from transaction join customeronline on customeronline.id = customer_id join address on address.id = address_id");
 ?>
 
 <!-- Main content -->

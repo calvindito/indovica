@@ -38,7 +38,7 @@
                        
                             <div>
                             <br>
-                                <input type="text" class="form-control input-lg"  name="token" value="" id = "mytoken" placeholder = "Please enter the unique code here" style = "font-size:15px;" required>
+                                <input type="text" class="form-control input-lg"  name="token" value="" id = "mytoken" placeholder = "Masukkan Kode Unik" style = "font-size:15px;" required>
                             </div>
                         </div>
                     </div>

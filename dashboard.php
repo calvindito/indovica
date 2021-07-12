@@ -74,7 +74,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                 <img src="logo/logovica.png" style="max-width:150px;">
-                    <h5 class="modal-title" style = "margin-left:20px; font-weight:bold; color:#a33c34;">Please enter your password</h5>
+                    <h5 class="modal-title" style = "margin-left:20px; font-weight:bold; color:#a33c34;">Masukkan Password Anda</h5>
 
                 </div>
 
@@ -673,7 +673,7 @@
                 console.log("Checkbox is checked.");
                 Swal.fire(
                             'HELLO',
-                            'Welcome to vica membership',
+                            'Selamat Datang di Member Indovica',
                             'success'
                         )
                 request = $.ajax({

@@ -3,7 +3,7 @@
 include '../../connection.php';
 include '../header.php' ;
 $id = $_GET['id'];
-$transaction = mysqli_query($conn,"SELECT transaction.*, customer.fullname, address.address from transaction join customer on customer.id = customer_id join address on address.id = address_id where transaction.id = $id");
+$transaction = mysqli_fetch_assoc(mysqli_query($conn,"SELECT `transaction`.*, customeronline.fullname,customeronline.email, address.address, address.phone from `transaction` join customeronline on customeronline.id = customer_id join address on address.id = address_id where transaction.id = $id"));
 
 ?>
 
@@ -55,11 +55,11 @@ $transaction = mysqli_query($conn,"SELECT transaction.*, customer.fullname, addr
 						<div class="row">
 							<div class="col-sm-6">
 								<div class="mb-4">
-									<img src="../../../../global_assets/images/logo_demo.png" class="mb-3 mt-2" alt="" style="width: 120px;">
+									<img src="../../global_assets/images/logo3.png" class="mb-3 mt-2" alt="" style="width: 120px;">
 		 							<ul class="list list-unstyled mb-0">
-										<li></li>
-										<li>Paris, France</li>
-										<li>888-555-2311</li>
+										<li>Indovica</li>
+										<li>Surabaya</li>
+										<li>081333444333</li>
 									</ul>
 								</div>
 							</div>
@@ -81,13 +81,10 @@ $transaction = mysqli_query($conn,"SELECT transaction.*, customer.fullname, addr
 							<div class="mb-4 mb-md-2">
 								<span class="text-muted">Invoice To:</span>
 	 							<ul class="list list-unstyled mb-0">
-									<li><h5 class="my-2">Rebecca Manes</h5></li>
-									<li><span class="font-weight-semibold">Normand axis LTD</span></li>
-									<li>3 Goodman Street</li>
-									<li>London E1 8BF</li>
-									<li>United Kingdom</li>
-									<li>888-555-2311</li>
-									<li><a href="#">rebecca@normandaxis.ltd</a></li>
+									<li><h5 class="my-2"><?=ucfirst($transaction['fullname'])?></h5></li>
+									<li><?=ucfirst($transaction['address'])?></li>
+									<li><?=ucfirst($transaction['phone'])?></li>
+									<li><a href="#"><?=ucfirst($transaction['email'])?></a></li>
 								</ul>
 							</div>
 
@@ -122,9 +119,9 @@ $transaction = mysqli_query($conn,"SELECT transaction.*, customer.fullname, addr
 					    <table class="table table-lg">
 					        <thead>
 					            <tr>
-					                <th>Description</th>
-					                <th>Rate</th>
-					                <th>Hours</th>
+					                <th>Product</th>
+					                <th>Price</th>
+					                <th>Qty</th>
 					                <th>Total</th>
 					            </tr>
 					        </thead>

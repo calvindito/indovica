@@ -189,7 +189,7 @@ if($_SESSION['role'] != 'admin'){
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link" id="nav-article"><i class="icon-list"></i> <span>transaction</span></a>
+							<a href="#" class="nav-link" id="nav-article"><i class="icon-graph"></i> <span>transaction</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="<?=$admin_url?>/transaction/index.php" class="nav-link">List transaction</a></li>
@@ -209,7 +209,7 @@ if($_SESSION['role'] != 'admin'){
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link" id="nav-article"><i class="icon-money"></i> <span>Currency</span></a>
+							<a href="#" class="nav-link" id="nav-article"><i class="icon-graph"></i> <span>Currency</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="<?=$admin_url?>/currency/index.php" class="nav-link">Currency</a></li>
