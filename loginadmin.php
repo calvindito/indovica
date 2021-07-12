@@ -133,9 +133,9 @@
 
                         Swal.fire({
                             icon: 'success',
-                            title: 'Login Successfully',
+                            title: 'Login Berhasil',
                             allowOutsideClick: false,
-                            text: 'Password Matched',
+                            text: 'Selamat Datang di Halaman Admin',
                         }).then(function() {
 
                             window.post = function() {

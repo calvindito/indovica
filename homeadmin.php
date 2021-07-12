@@ -261,7 +261,7 @@ session_start();
 	{
 		echo "<script> Swal.fire({
             icon: 'error',
-            title: 'Login First',
+            title: 'Login',
             allowOutsideClick: false,
             text: 'Untuk admin, silahkan login terlebih dahulu',
         }).then(function() {
@@ -299,7 +299,7 @@ session_start();
 				success: function (data) {
 					
 						Swal.fire(
-							'Created Successfully!',
+							'Berhasil!',
 							'<h3>Kode Berhasil Dibuat</h3><br><br> <h3>Kode:</h3>' + data,
 							'success'
 						)
