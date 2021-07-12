@@ -13,6 +13,8 @@ session_start();
 <html>
 
 <head>
+     <link rel="icon" href="logo/logovica.png">
+    <title>Admin- Indovica</title>
 	<style>
 
 	</style>
@@ -58,7 +60,7 @@ session_start();
 							<div class="form-group">
 								<label class="control-label">Nilai Barang</label>
 								<div>
-									<input type="text" class="form-control input-lg" name="totalnominalcicilan" value="" required>
+									<input type="text" class="form-control input-lg" name="totalnominalcicilan" onkeyup="rupiah('totalnominalcicilan',this.value)" id="totalnominalcicilan" value="" required>
 								</div>
 							</div>
 							<div class="form-group">
@@ -75,7 +77,7 @@ session_start();
 										<label class="control-label">Kuantiti Cicilan</label>
 										<div class="row">
 											<div class="col-lg-8">
-												<input type="text" name="kuantiticicilan" class="form-control input-lg"
+												<input type="number" name="kuantiticicilan" class="form-control input-lg"
 													value="" id="totalcicilan"
 													onInput="return isNumberKeygenerate(event)" />
 											</div>
@@ -194,7 +196,7 @@ session_start();
 									</tr>
 								</thead>
 								<tbody>
-								<?php  $j = 0;
+								<?php  $j = 1;
 								if($arr)
 								{
 									echo "ada";
@@ -289,7 +291,13 @@ session_start();
 	
 
 	});
-
+	
+	function rupiah(idx, x) {
+	  x = x.replace(/\D+/g, "");
+      y = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      $("#"+idx).val(y);
+    }
+    
 	function buatkode(myid)
 	{
 		request = $.ajax({
@@ -355,7 +363,7 @@ session_start();
 			for (var i = 1; i <= myval; i++) {
 
 				var fieldHTML = '<div> <label class="control-label">Cicilan ke -' + i +
-					'</label> <input type="text" class = "form-control input-lg" name="cicilan[]" value="" required/></div>'; //New input field html 
+					'</label> <input type="text" class = "form-control input-lg" name="cicilan[]" id="cicilan'+i+'" onkeyup="rupiah(this.id, this.value)" value="" required/></div>'; //New input field html 
 				$(wrapper).append(fieldHTML); //Add field html
 			}
 		}

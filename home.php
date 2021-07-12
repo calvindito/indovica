@@ -6,6 +6,7 @@
 <html>
 
 <head>
+     <link rel="icon" href="logo/logovica.png">
     <style>
         body{
             background-color:#DE6262;

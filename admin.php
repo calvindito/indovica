@@ -94,6 +94,7 @@ session_start();
     }
     $encodebarang = base64_encode($allfilbarang);
     $totalnominalcicilan = $_POST['totalnominalcicilan'];
+    $totalnominalcicilan	= preg_replace('/\D/','',$totalnominalcicilan);
     $kuantiticicilan =  $_POST['kuantiticicilan'];
     $cicilan=$_POST['cicilan'];
     
@@ -146,8 +147,9 @@ session_start();
         $j = 1;
         for($i = 0 ; $i < $kuantiticicilan; $i++)
         {
+          $cicilani = preg_replace('/\D/','', $cicilan[$i]);
           $stmtinsertdetail = $conn->prepare("INSERT INTO detailtransaksi values(NULL, ?, ?, ?, NULL, 'Belum Lunas')");
-          $stmtinsertdetail->bind_param("sis", $idtransaksi, $j, $cicilan[$i]);
+          $stmtinsertdetail->bind_param("sis", $idtransaksi, $j, $cicilani);
           $stmtinsertdetail->execute();
           $j +=1;
         }

@@ -33,6 +33,8 @@
         }
      
     </style>
+    <link rel="icon" href="logo/logovica.png">
+    <title>Dashboard - Indovica</title>
 
 </head>
 
@@ -473,7 +475,7 @@
                                         ?>
                                         <tr>
                                             <td><?php echo $arr[$i]['cicilanke'];?></td>
-                                            <td><?php echo $arr[$i]['nominalcicilan'];?></td>
+                                            <td><?php echo number_format($arr[$i]['nominalcicilan']);?></td>
 
                                             <?php if($arr[$i]['statuscicilan'] == "Belum Lunas")
                                             {
