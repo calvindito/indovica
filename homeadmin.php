@@ -312,7 +312,7 @@ session_start();
 		if(val == "mandate"){
 			html = '<div class="form-group">'
 						+'<label class="control-label">Fullname: </label>'+
-						+'<div><input type="text" class="form-control" name="fullname" value="">'
+						+'<div><input type="text" class="form-control input-lg" name="fullname" id="fullname"/>'
 						+'</div></div><div class="form-group">'
 						+'<label class="control-label">Full address for delivery of goods: </label>'
 						+'<div><textarea name="address" id="address" cols="30" rows="5" class="form-control"></textarea>'
