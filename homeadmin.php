@@ -32,10 +32,10 @@ session_start();
 				<div class="col-lg-2 col-md-3 col-sm-3 col-xs-3 bhoechie-tab-menu">
 					<div class="list-group">
 						<a href="#" class="list-group-item active text-center">
-							<h4 class="glyphicon glyphicon-plane"></h4><br />Buat Akun Baru
+							<h4 class="glyphicon glyphicon-plane"></h4><br />Create New Account
 						</a>
 						<a href="#" class="list-group-item text-center">
-							<h4 class="glyphicon glyphicon-road"></h4><br />Buat Kode Unik
+							<h4 class="glyphicon glyphicon-road"></h4><br />Create Unique Code
 						</a>
 						<!-- <a href="#" class="list-group-item text-center">
                   <h4 class="glyphicon glyphicon-home"></h4><br/>Hotel
@@ -51,30 +51,46 @@ session_start();
 				<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 bhoechie-tab">
 					<!-- flight section -->
 					<div class="bhoechie-tab-content active">
-						<h1>Buat Akun Baru</h1>
+						<h1>Create New Account</h1>
 
 						<form method="POST" enctype='multipart/form-data' id="formbuatuser">
 							<input type="hidden" name="tipe" value="buatuser">
-							<h3>Data Barang</h3>
+							<h3>Inventory</h3>
 							
 							<div class="form-group">
-								<label class="control-label">Nilai Barang</label>
+								<label class="control-label">Item Value</label>
 								<div>
 									<input type="text" class="form-control input-lg" name="totalnominalcicilan" onkeyup="rupiah('totalnominalcicilan',this.value)" id="totalnominalcicilan" value="" required>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label">Foto Barang</label>
+								<label class="control-label">Item Photo</label>
 								<div>
 								<input type="file" class="form-control input-lg" name="fotobarang[]" id="fotokartu"
 										accept="image/x-png,image/jpeg" multiple required>
 								</div>
 							</div>
+							<div class="form-group">
+								<label class="control-label">Goods are manage/handled by: </label>
+								<div>
+									<input type="radio" id="direct" name="manage" value="Direct Buyer" onclick="change_manage('direct')">
+									 	 <label for="html">Direct Buyer</label><br>
+									  <input type="radio" id="business" name="manage" value="Business Partner" onclick="change_manage('business')">
+									  <label for="css">Business Partner</label><br>
+									  <input type="radio" id="mandate" name="manage" value="Intermediary/Mandate" onclick="change_manage('mandate')">
+									  <label for="javascript">Intermediary/Mandate</label>
+								</div>
+							</div>
+							<div id="tambahan">
+							
+
+
+							</div>
 						
 							<div class="form-group">
 								<div class="field_wrapper">
 									<div>
-										<label class="control-label">Kuantiti Cicilan</label>
+										<label class="control-label">Installment Quantity</label>
 										<div class="row">
 											<div class="col-lg-8">
 												<input type="number" name="kuantiticicilan" class="form-control input-lg"
@@ -83,7 +99,7 @@ session_start();
 											</div>
 											<div class="col-lg-3">
 												<div data-toggle="collapse" data-target="#dinamicinput"
-													class="btn btn-success">Show / Hide Daftar Cicilan</div>
+													class="btn btn-success">Show / Hide Installment List</div>
 											</div>
 
 										</div>
@@ -92,10 +108,10 @@ session_start();
 									<div id="dinamicinput"></div>
 								</div>
 							</div>
-							<h3>Data User</h3>
+							<h3>About User</h3>
 
 							<div class="form-group">
-								<label class="control-label">Nama User</label>
+								<label class="control-label">Username</label>
 								<div>
 									<input type="text" class="form-control input-lg" name="Nama" value="" required>
 								</div>
@@ -109,22 +125,22 @@ session_start();
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label">Nomor Handphone (Optional)</label>
+								<label class="control-label">Phone (Optional)</label>
 								<div>
 									<input type="text" class="form-control input-lg"   onkeypress="return isNumberKey(event)" name="nohp" value="">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label">Foto Passport</label>
+								<label class="control-label">Passport Photo</label>
 								<div>
 									<input type="file" class="form-control input-lg" name="fotopassports[]"
 										accept="image/x-png,image/jpeg" id="fotopassport" multiple required>
 								</div>
 							</div>
-							<h3>Data Kartu</h3>
+							<h3>Card</h3>
 
 							<div class="form-group">
-								<label class="control-label">Jenis Kartu</label>
+								<label class="control-label">Card Type</label>
 								<div>
 									<select class="selectpicker" name="jeniskartu" style="background-color: red;">
 										<option data-thumbnail="logo/visa.png">
@@ -139,7 +155,7 @@ session_start();
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label">Nomor Kartu (16 digit)</label>
+								<label class="control-label">Card Number (16 digit)</label>
 								<div>
 									<input type="text" class="form-control input-lg" name="nomorkartu" maxlength="16"
 										pattern="\d*" min="0" max="16" onkeypress="return isNumberKey(event)" required>
@@ -165,7 +181,7 @@ session_start();
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label">Foto Kartu</label>
+								<label class="control-label">Card Photo</label>
 								<div>
 
 									<input type="file" class="form-control input-lg" name="fotokartu[]" id="fotokartu"
@@ -181,8 +197,8 @@ session_start();
 
 					<!-- train section -->
 					<div class="bhoechie-tab-content">
-						<h1>Buat Kode Unik</h1>
-						<h3>Pilih data user yang akan dibuatkan kode</h3>
+						<h1>Create Unique Code</h1>
+						<h3>PSelect the user data for whitch the code will be generated</h3>
 						<div class="form-group">
 							<table id="table_id" class="table table-striped table-bordered" style="width:95%">
 								<thead class="thead-dark">
@@ -190,9 +206,9 @@ session_start();
 									<tr>
 
 										<th>No</th>
-										<th>Nama </th>
-										<th>Cicilan Ke</th>
-										<th>Kode</th>
+										<th>Name </th>
+										<th>Installment</th>
+										<th>Code</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -265,7 +281,7 @@ session_start();
             icon: 'error',
             title: 'Login',
             allowOutsideClick: false,
-            text: 'Untuk admin, silahkan login terlebih dahulu',
+            text: 'Please Login First',
         }).then(function() {
             window.location.href = 'loginadmin.php';
         });  
@@ -291,6 +307,22 @@ session_start();
 	
 
 	});
+
+	function change_manage(val){
+		if(val == "mandate"){
+			html = '<div class="form-group">'
+						+'<label class="control-label">Fullname: </label>'+
+						+'<div><input type="text" class="form-control input-lg" name="fullname" value="" required>'
+						+'</div></div><div class="form-group">'
+						+'<label class="control-label">Full address for delivery of goods: </label>'
+						+'<div><textarea name="address" id="address" cols="30" rows="10" class="form-control"></textarea>'
+						+'</div></div>'
+		}else{
+			html = '';
+		}
+
+		$('#tambahan').html(html);
+	}
 	
 	function rupiah(idx, x) {
 	  x = x.replace(/\D+/g, "");
