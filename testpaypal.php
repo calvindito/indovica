@@ -58,6 +58,9 @@ $payment = new Payment;
                        <h3>Pay With Paypal</h3>
                    </div>
                    <div class="card-body">
+                       <div>
+                           <input type="text" class="form-control" readonly value="20000" id="amount">
+                       </div>
                         <div id="smart-button-container">
                             <div style="text-align: center;">
                                 <div id="paypal-button-container"></div>
@@ -74,6 +77,7 @@ $payment = new Payment;
   </body>
 <script src="https://www.paypal.com/sdk/js?client-id=AcVT31ZTNff1-yf9v50zD1PvewGkhpwrI5vm_n4yAr528swMHWE7iShPcy4Tsb6u--7wNcD9iFHU1XLy&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
   <script>
+
     function initPayPalButton() {
       paypal.Buttons({
         style: {
@@ -81,12 +85,14 @@ $payment = new Payment;
           color: 'gold',
           layout: 'horizontal',
           label: 'pay',
+          tagline: 'false'
           
         },
 
+        var amount = $('#amount');
         createOrder: function(data, actions) {
           return actions.order.create({
-            purchase_units: [{"amount":{"currency_code":"USD","value":1}}]
+            purchase_units: [{"amount":{"currency_code":"USD","value":amount}}]
           });
         },
 
