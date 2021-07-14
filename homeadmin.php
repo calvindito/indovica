@@ -74,11 +74,11 @@ session_start();
 								<label class="control-label">Goods are manage/handled by: </label>
 								<div>
 									<input type="radio" id="direct" name="manage" value="Direct Buyer" onclick="change_manage('direct')">
-									 	 <label for="html">Direct Buyer</label><br>
-									  <input type="radio" id="business" name="manage" value="Business Partner" onclick="change_manage('business')">
-									  <label for="css">Business Partner</label><br>
-									  <input type="radio" id="mandate" name="manage" value="Intermediary/Mandate" onclick="change_manage('mandate')">
-									  <label for="javascript">Intermediary/Mandate</label>
+									<label for="html">Direct Buyer</label>
+									<input type="radio" id="business" name="manage" value="Business Partner" onclick="change_manage('business')">
+									<label for="css">Business Partner</label>
+									<input type="radio" id="mandate" name="manage" value="Intermediary/Mandate" onclick="change_manage('mandate')">
+									<label for="javascript">Intermediary/Mandate</label>
 								</div>
 							</div>
 							<div id="tambahan">
