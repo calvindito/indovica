@@ -61,6 +61,7 @@ $payment = new Payment;
                        <div>
                            <input type="text" class="form-control" readonly value="20000" id="amount">
                        </div>
+                       <br><br>
                         <div id="smart-button-container">
                             <div style="text-align: center;">
                                 <div id="paypal-button-container"></div>
@@ -79,7 +80,7 @@ $payment = new Payment;
   <script>
 
     function initPayPalButton() {
-        var amount = $('#amount');
+        
       paypal.Buttons({
         style: {
           shape: 'pill',
@@ -91,7 +92,7 @@ $payment = new Payment;
         },
         createOrder: function(data, actions) {
           return actions.order.create({
-            purchase_units: [{"amount":{"currency_code":"USD","value":amount}}]
+            purchase_units: [{"amount":{"currency_code":"USD","value":1}}]
           });
         },
 
