@@ -1,13 +1,13 @@
 <?php
 
 require 'vendor/autoload.php';
-$environment = 'development';
+$environment = 'local';
 
 if($environment == 'development') {
     $url  = 'https://indovica.id/';
     $conn = mysqli_connect('localhost', 'indovica_projectlukisan', 'indovica_projectlukisan', 'indovica_projectlukisan');
 } else if($environment == 'local') {
-    $url  = 'http://localhost/indovica/';
+    $url = 'http://localhost/indovica/';
     $conn = mysqli_connect('localhost', 'root', '', 'indovica');
 }
 
