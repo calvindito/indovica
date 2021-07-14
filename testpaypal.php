@@ -51,7 +51,7 @@ $payment = new Payment;
                </form> -->
 
                <!-- example buttom -->
-               <div class="card" style="margin:200px auto 0">
+               <div class="card" style="margin:200px auto 0; max-width:200px">
                    <div class="card-header">
                        <h3>Pay With Paypal</h3>
                    </div>
