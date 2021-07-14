@@ -5,7 +5,7 @@ use Payment\Payment;
 $payment = new Payment;
 if(isset($_GET['kode'])){
     $kode = $_GET['kode'];
-    $total = mysqli_fetch_assoc(mysqli_query($conn,"SELECT nominalcicilan from detailtransaksi where id = $kode"));
+    $total = mysqli_fetch_assoc(mysqli_query($conn,"SELECT nominalcicilan from detailtransaksi where iddetail = $kode"));
 }else{
     $total = 0;
 }
