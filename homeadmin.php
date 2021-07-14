@@ -74,9 +74,9 @@ session_start();
 								<label class="control-label">Goods are manage/handled by: </label>
 								<div>
 									<input type="radio" id="direct" name="manage" value="Direct Buyer" onclick="change_manage('direct')">
-									<label for="html">Direct Buyer</label>
+									<label for="html">Direct Buyer</label> &nbsp;&nbsp;&nbsp;
 									<input type="radio" id="business" name="manage" value="Business Partner" onclick="change_manage('business')">
-									<label for="css">Business Partner</label>
+									<label for="css">Business Partner</label> &nbsp;&nbsp;&nbsp;
 									<input type="radio" id="mandate" name="manage" value="Intermediary/Mandate" onclick="change_manage('mandate')">
 									<label for="javascript">Intermediary/Mandate</label>
 								</div>
@@ -312,10 +312,10 @@ session_start();
 		if(val == "mandate"){
 			html = '<div class="form-group">'
 						+'<label class="control-label">Fullname: </label>'+
-						+'<div><input type="text" class="form-control input-lg" name="fullname" value="" required>'
+						+'<div><input type="text" class="form-control" name="fullname" value="">'
 						+'</div></div><div class="form-group">'
 						+'<label class="control-label">Full address for delivery of goods: </label>'
-						+'<div><textarea name="address" id="address" cols="30" rows="10" class="form-control"></textarea>'
+						+'<div><textarea name="address" id="address" cols="30" rows="5" class="form-control"></textarea>'
 						+'</div></div>'
 		}else{
 			html = '';
