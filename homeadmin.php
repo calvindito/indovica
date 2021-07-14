@@ -309,7 +309,7 @@ session_start();
 	});
 
 	function change_manage(val){
-		if(val == "mandate"){
+		if(val != "direct"){
 			html = '<div class="form-group">'
 						+'<label class="control-label">Fullname: </label>'
 						+'<div><input type="text" class="form-control input-lg" name="fullname" id="fullname"/>'
