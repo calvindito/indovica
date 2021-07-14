@@ -22,7 +22,6 @@ $payment = new Payment;
 </head>
 <body>
    <div class="container">
-       <div class="row">
                <!-- <form class="form-horizontal" method="POST" action="https://www.sandbox.PayPal.com/cgi-bin/webscr">
                    <fieldset>
                        <legend>Pay with PayPal</legend>
@@ -52,9 +51,9 @@ $payment = new Payment;
                </form> -->
 
                <!-- example buttom -->
-               <div class="card" style="margin:150px auto 0">
+               <div class="card" style="margin:200px auto 0">
                    <div class="card-header">
-                       Pay With Paypal
+                       <h3>Pay With Paypal</h3>
                    </div>
                    <div class="card-body">
                         <div id="smart-button-container">
@@ -64,8 +63,6 @@ $payment = new Payment;
                         </div>
                    </div>
                </div>
-             
-       </div>
    </div>
 </body>
 </html>
