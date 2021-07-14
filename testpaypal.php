@@ -23,12 +23,9 @@ $payment = new Payment;
 <body>
    <div class="container">
        <div class="row">
-           <div class="col-md-6">
-               <form class="form-horizontal" method="POST" action="https://www.sandbox.PayPal.com/cgi-bin/webscr">
+               <!-- <form class="form-horizontal" method="POST" action="https://www.sandbox.PayPal.com/cgi-bin/webscr">
                    <fieldset>
-                       <!-- Form Name -->
                        <legend>Pay with PayPal</legend>
-                       <!-- Text input-->
                        <div class="form-group">
                            <label class="col-md-4 control-label" for="amount">Payment Amount</label>
                            <div class="col-md-4">
@@ -39,14 +36,12 @@ $payment = new Payment;
                        <input type='hidden' name='business' value='sb-i7jak6252765@business.example.com'>
                        <input type='hidden' name='item_name' value='Camera123'>
                        <input type='hidden' name='item_number' value='CAM#N1'>
-                       <!--<input type='hidden' name='amount' value='10'>-->
                        <input type='hidden' name='no_shipping' value='1'>
                        <input type='hidden' name='currency_code' value='USD'>
                         <input type='hidden' name='notify_url' value='<?php echo $payment->route("notify", "") ?>'>
                         <input type='hidden' name='cancel_return' value='<?php echo $payment->route("http://phpstack-275615-1077014.cloudwaysapps.com/cancel.php", "") ?>'>
                        <input type='hidden' name='return' value='indovica.id/testpaypal.php'> 
                        <input type="hidden" name="cmd" value="_xclick">
-                       <!-- Button -->
                        <div class="form-group">
                            <label class="col-md-4 control-label" for="submit"></label>
                            <div class="col-md-4">
@@ -54,15 +49,22 @@ $payment = new Payment;
                            </div>
                        </div>
                    </fieldset>
-               </form>
+               </form> -->
 
                <!-- example buttom -->
-                <div id="smart-button-container">
-                    <div style="text-align: center;">
-                        <div id="paypal-button-container"></div>
-                    </div>
-                </div>
-           </div>
+               <div class="card" style="margin:150px auto 0">
+                   <div class="card-header">
+                       Pay With Paypal
+                   </div>
+                   <div class="card-body">
+                        <div id="smart-button-container">
+                            <div style="text-align: center;">
+                                <div id="paypal-button-container"></div>
+                            </div>
+                        </div>
+                   </div>
+               </div>
+             
        </div>
    </div>
 </body>
