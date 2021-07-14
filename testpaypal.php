@@ -1,9 +1,14 @@
 <?php
-include "vendor/autoload.php";
-
+include 'connection.php';
 include "paypal/Payment.php";
 use Payment\Payment;
 $payment = new Payment;
+if(isset($_GET['kode'])){
+    $kode = $_GET['kode'];
+    $total = mysqli_fetch_assoc(mysqli_query($conn,"SELECT nominalcicilan from detailtransaksi where id = $kode"));
+}else{
+    $total = 0;
+}
 ?>  
 
 <!DOCTYPE html>
@@ -59,9 +64,9 @@ $payment = new Payment;
                    </div>
                    <div class="card-body">
                        <div>
-                           <input type="text" class="form-control" readonly value="20000" id="amount">
+                           <input type="text" class="form-control" readonly value="<?=$total?>" id="amount">
                        </div>
-                       <br><br>
+                       <br>
                         <div id="smart-button-container">
                             <div style="text-align: center;">
                                 <div id="paypal-button-container"></div>

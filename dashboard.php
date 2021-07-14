@@ -497,7 +497,7 @@
 
                                                 <?php if($arr[$i]['statuscicilan'] == "Belum Lunas"){
                                                     ?>
-                                                    <a href="testpaypal.php" class="btn btn-success"
+                                                    <a href="testpaypal.php?kode=<?=$arr[$i]['iddetail']?>" class="btn btn-success"
                                                     style="width:100%;">Bayar</a>
                                                 <?php
                                                     }
