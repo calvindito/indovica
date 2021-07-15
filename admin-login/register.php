@@ -134,7 +134,6 @@
 												    <option value"BRI"> BRI</option>
 												    <option value"MANDIRI"> MANDIRI</option>
 												    <option value"BNI"> BNI</option>
-												    <option value"MANDIRI"> MANDIRI</option>
 												    <option value"BTN"> BTN</option>
 												    <option value"PERMATA">PERMATA</option>
 												    <option value"DANAMON">DANAMON</option>

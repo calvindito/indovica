@@ -1,13 +1,34 @@
-
 <?php
 session_start();
+require '../connection.php';
+
 if(!isset($_SESSION['bahasa'])){
     $bahasa = 'English';
 }else{
     $bahasa = $_SESSION['bahasa'];
 }
-require '../connection.php';
-$sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * from config where type = 'term-umum'"));
+
+if($bahasa == 'English'){
+    $home = 'Home';
+    $about = 'About Us';
+    $product = 'Product';
+    $contact = 'Contact';
+    $termandcon ='Term & Condition';
+    $login = 'Sign up / Login';
+    $myorder = 'My Order';
+    $logout = 'Log out';
+}else{
+    $home = 'Beranda';
+    $about = 'Tentang Kami';
+    $product = 'Produk';
+    $contact = 'Kontak';
+    $termandcon ='Syarat & Ketentuan';
+    $login = 'Daftar / Masuk';
+    $myorder = 'Pesananku';
+    $logout = 'Keluar';
+}
+
+$sql = mysqlI_fetch_assoc(mysqli_query($conn,"SELECT * from config where `type`='term-umum'"));
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US">
@@ -38,7 +59,7 @@ $sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * from config where type = 
 }
 
     @media screen and (max-width: 1000px) {
-        .dropdown {
+        #top-account {
             right: 0px;
             position: relative;
             float: right;
@@ -93,6 +114,9 @@ $sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * from config where type = 
 
     .goog-te-gadget {
         color: transparent !important;
+        float:right;
+        margin-top:15px;
+        margin-right:18px;
     }
 
     .centered {
@@ -106,19 +130,40 @@ $sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * from config where type = 
 
 </style>
 
-<body class="stretched">
+<body class="stretched" style="">
     <div id="wrapper" class="clearfix">
+        <div id="top-bar">
+			<div class="container-fluid">
+
+				<div class="row">
+					<div class="col-6 ">
+						<p class="mb-0 py-2 text-md-left" style="margin-top:10px;align-vertical:middle"> <strong>Email:</strong> cs.indovica@gmail.com</p>
+					</div>
+
+					<div class="col-6 ">
+						<!--<div class="dropdown" id="google_translate_element" placeholder = "choose"></div>-->
+                        	<div class="dropdown">
+                        		<a href="#" class="text-muted dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="float:right;margin-top:10px; font-size:14px"><?=$bahasa?></a>
+                        		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" onclick="change_bahasa('English')" href="#" style="font-size: 14px">English</a>
+                                    <a class="dropdown-item" onclick="change_bahasa('Indonesia')" href="#" style="font-size: 14px">Indonesia</a>
+                                </div>
+                        </div>
+					</div>
+				</div>
+			</div>
+		</div>
         <header id="header" class="full-header header-size-md">
             <div id="header-wrap" style="border-bottom:2px solid rgba(0, 0, 0, .2);">
                 <div class="container">
                     <div class="header-row justify-content-lg-between">
-                        <!--<img src = "../assets/store/images/frontend/indovica2.png" style = "position:absolute; top:10px;height:220px;width:100%;">-->
+                        <!--<img src = "../assets/store/images/indovica.png" style = "position:absolute; top:10px;height:220px;width:100%;">-->
                         <div id="logo">
-                            <a href="/" class="standard-logo" data-dark-logo="../assets/store/images/frontend/indovica3.png">
-                                <img src="../assets/store/images/frontend/indovica3.png">
+                            <a href="/" class="standard-logo" data-dark-logo="../assets/store/images/indovica.png">
+                                <img src="../assets/store/images/indovica.png">
                             </a>
-                            <a href="/" class="retina-logo mt-2 mb-2" data-dark-logo="../assets/store/images/frontend/indovica3.png">
-                                <img src="../assets/store/images/frontend/indovica3.png">
+                            <a href="/" class="retina-logo mt-2 mb-2" data-dark-logo="../assets/store/images/indovica.png">
+                                <img src="../assets/store/images/indovica.png">
                             </a>
                         </div>
                         <div id="primary-menu-trigger">
@@ -132,22 +177,31 @@ $sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * from config where type = 
                                 </path>
                             </svg>
                         </div>
-                        <div class="header-misc">
-                                	<div class="dropdown">
-                        		<buttom class="btn btn-outline-danger rounded-pill  dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="float:right;margin-top:10px"><?=$bahasa?></buttom>
-                        		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" onclick="change_bahasa('English')" href="#">English</a>
-                                    <a class="dropdown-item" onclick="change_bahasa('Indonesia')" href="#">Indonesia</a>
-                                </div>
-                        </div>
+                        <nav class="primary-menu">
+                            <!--style = "position:absolute;right:0;top:105px;margin-right:30px;background:url('../assets/store/images/frontend/indovica2.png');>"-->
+                            <!-- Menu Left -->
+                            <ul class="not-dark menu-container">
+                               
+                            
+                            </ul>
+    
+                            <div class="header-misc">
                                 <div id="top-account">
                                     <div style="width:150px" id="login2">
-                                        <a href="index.php" class="menu-link">Sign up/Login</a>
+                                       
+                                        <a href="index.php" class="menu-link"><?=$login?></a>
                                         
                                     </div>
                                 </div>
-                        </div>
+                                 
+    
+                            </div><!-- #top-cart end -->
+    
+                        </nav>
                     </div>
+                    <!--<div id ="responsiveweb" style = "float:right;">-->
+                    <!--<div class="dropdown" id="google_translate_element" style="  margin-top:16px;"></div>-->
+                    <!--</div>-->
                 </div>
 
             </div>
@@ -155,6 +209,42 @@ $sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * from config where type = 
         </header>
 
 
+        <div class="modal-register mfp-hide" id="modal-register">
+            <div class="card mx-auto" style="max-width: 540px;">
+                <div class="card-header py-3 bg-transparent center">
+                    <h3 class="mb-0 font-weight-normal">Hello, Welcome Back</h3>
+                </div>
+                <div class="card-body mx-auto py-5" style="max-width: 70%;">
+                    <form id="login-form" name="login-form" class="mb-0 row" action="index.php" method="post">
+
+                        <div class="col-12">
+                            <input type="text" id="login-form-username" name="username" value=""
+                                class="form-control not-dark" placeholder="Username" />
+                        </div>
+
+                        <div class="col-12 mt-4">
+                            <input type="password" id="login-form-password" name="password" value=""
+                                class="form-control not-dark" placeholder="Password" />
+                        </div>
+
+                        <div class="col-12 text-right">
+                            <a href="#" class="text-dark font-weight-light mt-2">Forgot Password?</a>
+                        </div>
+
+                        <div class="col-12 mt-4">
+                            <button class="button btn-block m-0" id="login-form-submit" name="login"
+                                value="login">Login</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer py-4 center">
+                    <p class="mb-0">Don't have an account? <a href="register.php"><u>Sign up</u></a></p>
+                </div>
+            </div>
+        </div>
+
+		
+	
 
 
 		<!-- Content
@@ -178,6 +268,54 @@ $sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * from config where type = 
 		</section><!-- #content end -->
 	</div><!-- #wrapper end -->
 
+
+
+
+
+
+
+
+		<!-- Footer
+		============================================= -->
+		<footer id="footer" class="bg-color dark border-0">
+
+			
+
+			<!-- Copyrights
+			============================================= -->
+			<div id="copyrights">
+
+				<div class="container-fluid clearfix">
+
+					<div class="row justify-content-between align-items-center">
+						<div class="col-md-6" style="color:white !important">
+							Copyrights &copy; 2021 All Rights Reserved by VICA<br>
+							<div class="copyright-links"><a href="term.php" style="color:white !important">Terms & Condition</a> </div>
+							<!-- / <a href="#">Privacy Policy</a> -->
+						</div>
+
+						<div class="col-md-6 d-md-flex flex-md-column align-items-md-end mt-4 mt-md-0">
+							<ul class="list-unstyled d-flex flex-row mb-2 clearfix">
+								<!-- <li class="mr-2"><img src="../assets/store/demos/xmas/images/cards/visa.svg" alt="Visa" width="34"></li>
+								<li class="mr-2"><img src="../assets/store/demos/xmas/images/cards/mc.svg" alt="Master Card" width="34"></li>
+								<li class="mr-2"><img src="../assets/store/demos/xmas/images/cards/ae.svg" alt="American Express" width="34"></li>
+								<li class="mr-2"><img src="../assets/store/demos/xmas/images/cards/pp.svg" alt="PayPal" width="34"></li> -->
+							</ul>
+							<div class="copyrights-menu copyright-links clearfix">
+								<a href="aboutus.php" style="color:white !important">About</a>/<a href="#" style="color:white !important">Features</a>
+								<!-- /<a href="#">FAQs</a> -->
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div><!-- #copyrights end -->
+
+		</footer><!-- #footer end -->
+
+	</div><!-- #wrapper end -->
+
 	<!-- Go To Top
 	============================================= -->
 	<div id="gotoTop" class="icon-angle-up"></div>
@@ -185,7 +323,7 @@ $sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * from config where type = 
 	<!-- JavaScripts
 	============================================= -->
 	<script src="../assets/store/js/jquery.js"></script>
-	<script src="../>assets/store/js/plugins.min.js"></script>
+	<script src="../assets/store/js/plugins.min.js"></script>
 
 	<!-- Footer Scripts
 	============================================= -->
@@ -198,10 +336,28 @@ $sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * from config where type = 
 	$('.carousel').carousel({
   interval: 2000
 })
-		$(document).ready(changeHeaderColor);
+// 		$(document).ready(changeHeaderColor);
 		$(window).on('resize',changeHeaderColor);
 
-
+// 		function changeHeaderColor(){
+// 			if (jQuery(window).width() > 991.98) {
+// 				jQuery( "#header" ).hover(
+// 					function() {
+// 						if (!$(this).hasClass("sticky-header")) {
+// 							$( this ).addClass( "hover-light" ).removeClass( "dark" );
+// 							SEMICOLON.header.logo();
+// 						}
+// 						$( "#wrapper" ).addClass( "header-overlay" );
+// 					}, function() {
+// 						if (!$(this).hasClass("sticky-header")) {
+// 							$( this ).removeClass( "hover-light" ).addClass( "dark" );
+// 							SEMICOLON.header.logo();
+// 						}
+// 						$( "#wrapper" ).removeClass( "header-overlay" );
+// 					}
+// 				);
+// 			}
+// 		};
 
 		$(window).scroll(function() {
 		    
@@ -217,8 +373,9 @@ $sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * from config where type = 
 		});
 
 		function googleTranslateElementInit() {
- 			 new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'ar,en,es,jv,ko,pa,pt,ru,zh-CN', autoDisplay: false}, 'google_translate_element');
+ 			 new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,id', autoDisplay: false}, 'google_translate_element');
 		}
+		
 		function change_bahasa(kode){
 		    
 		    $.ajax({
@@ -240,4 +397,4 @@ $sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * from config where type = 
 
 
 </body>
-</html
+</html>

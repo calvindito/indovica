@@ -7,6 +7,26 @@ if(!isset($_SESSION['bahasa'])){
 }else{
     $bahasa = $_SESSION['bahasa'];
 }
+
+if($bahasa == 'English'){
+    $home = 'Home';
+    $about = 'About Us';
+    $product = 'Product';
+    $contact = 'Contact';
+    $termandcon ='Term & Condition';
+    $login = 'Sign up / Login';
+    $myorder = 'My Order';
+    $logout = 'Log out';
+}else{
+    $home = 'Beranda';
+    $about = 'Tentang Kami';
+    $product = 'Produk';
+    $contact = 'Kontak';
+    $termandcon ='Syarat & Ketentuan';
+    $login = 'Daftar / Masuk';
+    $myorder = 'Pesananku';
+    $logout = 'Keluar';
+}
 if(isset($_SESSION['id'])){
     $customer_id = $_SESSION['id'];
 	$cart = mysqli_query($conn, "SELECT cart.id, cart.qty,cart.product_id, product.name, product.image, product.price FROM cart LEFT JOIN product ON product.id = cart.product_id  WHERE cart.customer_id = '$customer_id'  group by cart.product_id");
@@ -169,19 +189,19 @@ if(isset($_SESSION['id'])){
                             <!-- Menu Left -->
                             <ul class="not-dark menu-container">
                                 <li class="menu-item"><a class="menu-link" href="index.php">
-                                        <div>Home</div>
+                                        <div><?=$home?></div>
                                     </a></li>
                                 <li class="menu-item"><a class="menu-link" href="product.php">
-                                        <div>Product</div>
+                                        <div><?=$product?></div>
                                     </a></li>
                                 <li class="menu-item"><a class="menu-link" href="aboutus.php">
-                                        <div>About Us</div>
+                                        <div><?=$about?></div>
                                     </a></li>
                                 <li class="menu-item"><a class="menu-link" href="contact.php">
-                                        <div>Contact</div>
+                                        <div><?=$contact?></div>
                                     </a></li>
                                 <li class="menu-item"><a class="menu-link" href="term.php">
-                                        <div>Terms & Condition</div>
+                                        <div><?=$termandcon?></div>
                                     </a></li>
                                 <li class="menu-item"><a class="menu-link" href="admin-login">
                                         <div>Vendor</div>
@@ -189,7 +209,7 @@ if(isset($_SESSION['id'])){
                                 
                                 <?php if(!isset($_SESSION['name'])){?>
                                 <li class="menu-item" id="login">
-                                        <a href="#modal-register" data-lightbox="inline" class="menu-link">Sign up/Login</a>
+                                        <a href="#modal-register" data-lightbox="inline" class="menu-link"><?=$login?></a>
                                     
                                 </liv>
                                 
@@ -201,14 +221,12 @@ if(isset($_SESSION['id'])){
                                 </li>
                                  <li class="menu-item" id="myorder" >   
                                     
-                                                <a class="menu-link" style="font-size:14px;" href="my_order.php">My
-                                                    Order</a>
+                                                <a class="menu-link" style="font-size:14px;" href="my_order.php"><?=$myorder?></a>
                                   
                                 </li>
                                 <li class="menu-item" id="logout">
                                     <div>
-                                        <a class="menu-link" style="font-size:14px;" href="logout.php">Log
-                                                    out</a>
+                                        <a class="menu-link" style="font-size:14px;" href="logout.php"><?=$logout?></a>
                                     </div>
                                     
                                 </li>
@@ -222,7 +240,7 @@ if(isset($_SESSION['id'])){
                                     <div style="width:150px" id="login2">
                                         <?php if(!isset($_SESSION['name'])){?>
     
-                                        <a href="#modal-register" data-lightbox="inline" class="menu-link">Sign up/Login</a>
+                                        <a href="#modal-register" data-lightbox="inline" class="menu-link"><?=$login?></a>
                                         <?php } else { ?>
                                         <div class="dropdown header-misc-icon" >
                                             <a href="javascript:void(0);" class="dropdown-toggle" id="navbarDropdown"
@@ -235,11 +253,9 @@ if(isset($_SESSION['id'])){
                                             <div class="dropdown-menu mt-3" aria-labelledby="navbarDropdown">
                                                 <a class="dropdown-item" style="font-size:14px;" href="#"><?=ucfirst($_SESSION['username']) ?></a>
                                                 <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item" style="font-size:14px;" href="my_order.php">My
-                                                    Order</a>
+                                                <a class="dropdown-item" style="font-size:14px;" href="my_order.php"><?=$myorder?></a>
                                                 <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item" style="font-size:14px;" href="logout.php">Log
-                                                    out</a>
+                                                <a class="dropdown-item" style="font-size:14px;" href="logout.php"><?=$logout?></a>
                                             </div>
                                         </div>
                                         <?php } ?>
