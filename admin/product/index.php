@@ -385,8 +385,8 @@ function loadData() {
   
        if(val == 'accepted'){
     
-            html = '<div class="form-group">'
-            +'<div class="row">'
+        html = '<div class="form-group">'
+                        +'<div class="row">'
 						+'<div class="col-sm-6">'
 						+'<label>Profit (%)</label>'
                         +'<select name="profit" id="profit" class="form-control" onchange="changeprofit(this.value)">'
@@ -413,7 +413,9 @@ function loadData() {
                         +'</div>'
                         +'<div class="col-sm-6">'
 						+'<label>Public Price</label>'
-                        +'<input type="text" name
+                        +'<input type="text" name="public_price" id="public_price" class="form-control" required>'
+						+'</div></div></div>';
+   
             $('#tampil').html(html);
        }else{
             $('#tampil').html('');
