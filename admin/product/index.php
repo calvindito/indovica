@@ -307,7 +307,7 @@ function loadData() {
       $('#modalPush').modal('show');
    }
    function detail(id,status) {
-       if(status == 1 || status == 2){
+       if(status == 2){
     html = '<div class="form-group">'
                         +'<div class="row">'
 						+'<div class="col-sm-6">'
