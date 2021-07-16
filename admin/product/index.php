@@ -216,12 +216,15 @@ $category = mysqli_query($conn,"SELECT * from category");
 												<label>Status</label>
 												<select name="status" id="status" class="form-control">
                                                     <option value="">--Choose--</option>
-                                                    <option value="accepted">Accepted</option>
-                                                    <option value="rejected">Rejected</option>
+                                                    <option value="accepted" onchange="changeHarga('accepted')">Accepted</option>
+                                                    <option value="rejected" onchange="changeHarga('rejected')">Rejected</option>
                                                 </select>
 											</div>
 										</div>
 									</div>
+                                    <div id="tampil">
+
+                                    </div>
 								</div>
 
 								<div class="modal-footer">
@@ -338,6 +341,30 @@ function loadData() {
             $('#btn_edit').attr('onclick', 'edit(' + id + ')');
          }
       });
+   }
+
+   function changeHarga(val){
+       if(val == 'accepted'){
+            html = '<div class="form-group">'
+                        +'<div class="row">'
+						+'<div class="col-sm-6">'
+						+'<label>Profit (%)</label>'
+                        +'<input type="number" name="profit" id="profit" required onkeyup="changeprofit(this.value)">'
+						+'</div>'
+                        +'<div class="col-sm-6">'
+						+'<label>Public Price</label>'
+                        +'<input type="text" name="public_price" id="public_price" required>'
+						+'</div></div></div>';
+            $('#tampil').html(html);
+       }else{
+            $('#tampil').html(html);
+       }
+   }
+
+   function changeprofit(val){
+       var harga = $('#price').val();
+       profit = (harga * val / 100) + harga;
+       $('#public_price').val(profit);
    }
 
    
