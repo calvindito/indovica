@@ -358,6 +358,7 @@ function loadData() {
 						+'</div></div></div>';
             $('#tampil').html(html);
        }else{
+        alert('ok');
             $('#tampil').html(html);
        }
    }
