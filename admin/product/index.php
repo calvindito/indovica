@@ -306,7 +306,8 @@ function loadData() {
       $('#btn_tambah').hide();
       $('#modalPush').modal('show');
    }
-   function detail(id) {
+   function detail(id,status) {
+       if(status == 1 || status == 2){
     html = '<div class="form-group">'
                         +'<div class="row">'
 						+'<div class="col-sm-6">'
@@ -318,7 +319,9 @@ function loadData() {
                         +'<input type="text" name="public_price" id="public_price" class="form-control" required>'
 						+'</div></div></div>';
             $('#tampil').html(html);
-
+       }else{
+        $('#tampil').html('');
+       }
       toEdit();
       $.ajax({
          url: 'detail.php?id=' + id,

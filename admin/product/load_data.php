@@ -50,14 +50,14 @@ if($query_data) {
         }
         if($row['status']=="accepted"){
             $status = '<button class="btn btn-outline-success border-transparent">ACCEPTED</button>';
-            $aksi =' <button type="button" onclick="detail(' . $row['id'] . ')" class="btn btn-primary btn-sm">Detail</button>';
+            $aksi =' <button type="button" onclick="detail(' . $row['id'] . ',2)" class="btn btn-primary btn-sm">Detail</button>';
         }else if($row['status']=="rejected"){
             $status = '<button class="btn btn-outline-danger border-transparent">REJECTED</button>';
-            $aksi =' <button type="button" onclick="detail(' . $row['id'] . ')" class="btn btn-primary btn-sm">Detail</button>';
+            $aksi =' <button type="button" onclick="detail(' . $row['id'] . ',3)" class="btn btn-primary btn-sm">Detail</button>';
         }else{
             $status = '<button class="btn btn-outline-primary border-transparent">REVIEW</button>';
             $aksi = '
-                <button type="button" onclick="detail(' . $row['id'] . ')" class="btn btn-warning btn-sm">Update</button>
+                <button type="button" onclick="detail(' . $row['id'] . ',1)" class="btn btn-warning btn-sm">Update</button>
                 <button type="button" onclick="hapus(' . $row['id'] . ')" class="btn btn-danger btn-sm">Delete</button>
             ';
         }
