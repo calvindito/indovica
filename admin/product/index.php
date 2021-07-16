@@ -214,10 +214,10 @@ $category = mysqli_query($conn,"SELECT * from category");
                                         <div class="row">
 											<div class="col-sm-12">
 												<label>Status</label>
-												<select name="status" id="status" class="form-control">
+												<select name="status" id="status" class="form-control" onchange="changeHarga(this.value)">
                                                     <option value="">--Choose--</option>
-                                                    <option value="accepted" onclick="changeHarga('accepted')">Accepted</option>
-                                                    <option value="rejected" onclick="changeHarga('rejected')">Rejected</option>
+                                                    <option value="accepted">Accepted</option>
+                                                    <option value="rejected">Rejected</option>
                                                 </select>
 											</div>
 										</div>
@@ -344,9 +344,9 @@ function loadData() {
    }
 
    function changeHarga(val){
-    alert('ok');
+  
        if(val == 'accepted'){
-           alert('ok');
+    
             html = '<div class="form-group">'
                         +'<div class="row">'
 						+'<div class="col-sm-6">'
@@ -359,7 +359,6 @@ function loadData() {
 						+'</div></div></div>';
             $('#tampil').html(html);
        }else{
-        alert('ok');
             $('#tampil').html(html);
        }
    }
