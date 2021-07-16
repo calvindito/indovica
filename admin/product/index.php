@@ -312,7 +312,7 @@ function loadData() {
                         +'<div class="row">'
 						+'<div class="col-sm-6">'
 						+'<label>Profit (%)</label>'
-                        +'<select name="profit" id="profit" class="form-control" onchange="changeprofit(this.value)">
+                        +'<select name="profit" id="profit" class="form-control" onchange="changeprofit(this.value)">'
                         +'<option value="20">20%</option>'
                         +'<option value="30">30%</option>'
                         +'<option value="40">40%</option>'
@@ -389,7 +389,7 @@ function loadData() {
             +'<div class="row">'
 						+'<div class="col-sm-6">'
 						+'<label>Profit (%)</label>'
-                        +'<select name="profit" id="profit" class="form-control" onchange="changeprofit(this.value)">
+                        +'<select name="profit" id="profit" class="form-control" onchange="changeprofit(this.value)">'
                         +'<option value="20">20%</option>'
                         +'<option value="30">30%</option>'
                         +'<option value="40">40%</option>'
