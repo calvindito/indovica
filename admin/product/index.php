@@ -216,8 +216,8 @@ $category = mysqli_query($conn,"SELECT * from category");
 												<label>Status</label>
 												<select name="status" id="status" class="form-control">
                                                     <option value="">--Choose--</option>
-                                                    <option value="accepted" onchange="changeHarga('accepted')">Accepted</option>
-                                                    <option value="rejected" onchange="changeHarga('rejected')">Rejected</option>
+                                                    <option value="accepted" onclick="changeHarga('accepted')">Accepted</option>
+                                                    <option value="rejected" onclick="changeHarga('rejected')">Rejected</option>
                                                 </select>
 											</div>
 										</div>
@@ -344,7 +344,7 @@ function loadData() {
    }
 
    function changeHarga(val){
-       alert('ok');
+    alert('ok');
        if(val == 'accepted'){
            alert('ok');
             html = '<div class="form-group">'
