@@ -338,6 +338,10 @@ function loadData() {
             $('#price').val(response.price);
             $('#currency').val(response.currency);
             $('#description').val(response.description);
+            $('#public_price').val(response.public_price);
+            $('#profit').val(response.profit);
+            
+            
             $('#btn_edit').attr('onclick', 'edit(' + id + ')');
          }
       });
