@@ -344,6 +344,7 @@ function loadData() {
    }
 
    function changeHarga(val){
+       alert('ok');
        if(val == 'accepted'){
            alert('ok');
             html = '<div class="form-group">'
