@@ -351,11 +351,11 @@ function loadData() {
                         +'<div class="row">'
 						+'<div class="col-sm-6">'
 						+'<label>Profit (%)</label>'
-                        +'<input type="number" name="profit" id="profit" required onkeyup="changeprofit(this.value)">'
+                        +'<input type="number" name="profit" id="profit" class="form-control" required onkeyup="changeprofit(this.value)">'
 						+'</div>'
                         +'<div class="col-sm-6">'
 						+'<label>Public Price</label>'
-                        +'<input type="text" name="public_price" id="public_price" required>'
+                        +'<input type="text" name="public_price" id="public_price" class="form-control" required>'
 						+'</div></div></div>';
             $('#tampil').html(html);
        }else{
@@ -365,7 +365,8 @@ function loadData() {
 
    function changeprofit(val){
        var harga = $('#price').val();
-       profit = (harga * val / 100) + harga;
+
+       profit = (parseInt(harga) * parseInt(val) / 100) + parseInt(harga);
        $('#public_price').val(profit);
    }
 
