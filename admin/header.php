@@ -170,6 +170,14 @@ if($_SESSION['role'] != 'admin'){
 								</span>
 							</a>
 						</li>
+<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link" id="nav-product"><i class="icon-copy"></i> <span>Vendor</span></a>
+
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="<?=$admin_url?>/vendor/index.php" class="nav-link">List Vendor</a></li>
+							
+							</ul>
+						</li>
 						<li class="nav-item nav-item-submenu">
 							<a href="#" class="nav-link" id="nav-product"><i class="icon-copy"></i> <span>Product</span></a>
 
