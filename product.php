@@ -27,10 +27,10 @@ if(isset($_POST['submit_check'])){
 		$where .= ' order by name asc';
 		$sort = 'name';
 	}else if($_POST['sort_check'] == 'low'){
-		$where .= ' order by price asc';
+		$where .= ' order by public_price asc';
 		$sort = 'low';
 	}else if($_POST['sort_check'] == 'height'){
-		$where .= ' order by price desc';
+		$where .= ' order by public_price desc';
 		$sort = 'height';
 	}
 	$sql = "SELECT * FROM product $where";
@@ -250,7 +250,7 @@ div.panel2.show {
 										$product_id 	= $row['id'];
 										$product_name 	= $row['name'];
 										$product_image 	= explode(',',$row['image']);
-										$product_price 	= $row['price'];
+										$product_price 	= $row['public_price'];
 										$currency_price = $row['currency'];
 								
 									   if($currency != 'IDR' && $currency_price != 'IDR' ){

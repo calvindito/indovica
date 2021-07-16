@@ -359,7 +359,7 @@ function loadData() {
 						+'</div></div></div>';
             $('#tampil').html(html);
        }else{
-            $('#tampil').html(html);
+            $('#tampil').html('');
        }
    }
 

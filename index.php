@@ -191,7 +191,7 @@ body {
 										$product_id 	= $row['id'];
 										$product_name 	= $row['name'];
 										$product_image 	= explode(',',$row['image']);
-										$product_price 	= $row['price'];
+										$product_price 	= $row['public_price'];
 								?>
 						<div class="oc-item">
 							<div class="product">
@@ -236,7 +236,7 @@ body {
 										$product_id 	= $row['id'];
 										$product_name 	= $row['name'];
 										$product_image 	= explode(',',$row['image']);
-										$product_price 	= $row['price'];
+										$product_price 	= $row['public_price'];
 								?>
 						<div class="oc-item">
 							<div class="product">
