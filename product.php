@@ -264,7 +264,7 @@ div.panel2.show {
 									
 					
 									   }else if($currency_price == 'IDR'){
-										   $harga_rp = $product_price;
+										   $harga_idr = $product_price;
 									        $currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='USD'"));
 									        $nominal2        = $currency2_sql['nominal'];
 									        $harga_usd          = $product_price / $nominal2;
@@ -287,8 +287,10 @@ div.panel2.show {
 								
 								<div class="product-image">
 									<?php for($i=0;$i<count($product_image);$i++){?>
-									<a href="#"><img src="<?=$base_url?>global_assets/images/foto_produk/<?=$product_image[$i]?>" height="200px" alt="Round Neck T-shirts"></a>
-									<?php } ?>
+									<a href="#"><img src="<?=$base_url?>global_assets/images/foto_produk/<?=$product_image[$i]?>" height="200px" ></a>
+									
+									<?php }
+									?>
 									<div class="bg-overlay">
 										<div class="bg-overlay-content align-items-end justify-content-between" data-hover-animate="fadeIn" data-hover-speed="400">
 											<a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-basket"></i></a>

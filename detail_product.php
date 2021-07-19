@@ -6,30 +6,36 @@ $product_id = $_GET['kode'];
 $detail     = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM product where id = $product_id"));
 $currency_price = $detail['currency'];
 $product_price = $detail['public_price'];
-																	
-if($currency != 'IDR' && $currency_price != 'IDR' ){
+if($currency_price == 'USD' ){
+									  
+	$harga_usd = $product_price;
+	$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='USD'"));
+	$nominal2        = $currency2_sql['nominal'];
+	$harga_idr          = $product_price * $nominal2;
+	$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='EURO'"));
+	$nominal2        = $currency2_sql['nominal'];
+	$harga_euro         = $harga_idr / $nominal2;
+   }else if($currency_price == 'EURO'){
+	   $harga_euro = $product_price;
+		$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='EURO'"));
+		$nominal2        = $currency2_sql['nominal'];
+		$harga_idr          = $product_price * $nominal2;
+		$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='USD'"));
+		$nominal2        = $currency2_sql['nominal'];
+		$harga_usd          = $harga_idr / $nominal2;
 
-	$currency_sql 	= mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency_price'"));
-	$nominal        = $currency_sql['nominal'];
-	$idr            = $product_price * $nominal ;
-	
-	$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency'"));
-	$nominal2        = $currency2_sql['nominal'];
-	$harga          = $idr / $nominal2;
-	$simbol         = $currency2_sql['simbol'];
-}else if($currency == 'IDR' && $currency_price != 'IDR'){
-	$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency_price'"));
-	$nominal2        = $currency2_sql['nominal'];
-	$harga          = $product_price * $nominal2;
-	$simbol         = 'Rp';
-   
-}else if($currency != 'IDR' && $currency_price == 'IDR'){
-	$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency'"));
-	$nominal2        = $currency2_sql['nominal'];
-	$harga          = $product_price / $nominal2;
-	$simbol         = $currency2_sql['simbol'];
-   
-}
+
+   }else if($currency_price == 'IDR'){
+	   $harga_idr = $product_price;
+		$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='USD'"));
+		$nominal2        = $currency2_sql['nominal'];
+		$harga_usd          = $product_price / $nominal2;
+
+		$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='EURO'"));
+		$nominal2        = $currency2_sql['nominal'];
+		$harga_euro          = $product_price / $nominal2;
+	   
+   }
    else{
    $simbol = 'Rp';
    $harga = $product_price;
@@ -94,8 +100,14 @@ if(isset($_POST['add_to_cart'])) {
 							<div class="row gutter-50">
 								<div class="col-xl-7 col-lg-5 mb-0 sticky-sidebar-wrap">
 									<div class="masonry-thumbs grid-container grid-2" data-lightbox="gallery">
-                                        <?php for($i= 0;$i < count($image) ; $i++){?>
-										<a class="grid-item" href="global_assets/images/foto_produk/<?=$image[$i]?>" data-lightbox="gallery-item"><img src="global_assets/images/foto_produk/<?=$image[$i]?>" alt="Watch 1"></a>
+                                        <?php for($i= 0;$i < count($image) ; $i++){
+											$foto = $image[$i];
+											?>
+										<a class="grid-item" href="global_assets/images/foto_produk/<?=$image[$i]?>" data-lightbox="gallery-item"><img src="global_assets/images/foto_produk/<?=$image[$i]?>"></a>
+										<?php };
+										if(count($image) == 1){
+										?>
+										<a class="grid-item" href="global_assets/images/foto_produk/<?=$foto?>" data-lightbox="gallery-item"><img src="global_assets/images/foto_produk/<?=$foto?>"></a>
 										<?php } ?>
 									</div>
 
@@ -106,7 +118,10 @@ if(isset($_POST['add_to_cart'])) {
 
 										<!-- Product Single - Price
 										============================================= -->
-										<div class="product-price"> <ins><?=$simbol?> <?= number_format($harga); ?></ins></div><!-- Product Single - Price End -->
+										<div class="product-price"> <ins>IDR <?= number_format($harga_idr); ?></ins><br>
+										<ins>USD <?= number_format($harga_usd); ?></ins><br>
+										<ins>EURO <?= number_format($harga_euro); ?></ins>
+									</div><!-- Product Single - Price End -->
 
 										<!-- Product Single - Rating
 										============================================= -->
