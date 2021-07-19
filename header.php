@@ -8,6 +8,12 @@ if(!isset($_SESSION['bahasa'])){
     $bahasa = $_SESSION['bahasa'];
 }
 
+if(!isset($_SESSION['currency'])){
+    $currency = 'IDR';
+}else{
+    $currency = $_SESSION['currency'];
+}
+
 if($bahasa == 'English'){
     $home = 'Home';
     $about = 'About Us';
@@ -150,12 +156,13 @@ if(isset($_SESSION['id'])){
 					<div class="col-6 ">
 						<!--<div class="dropdown" id="google_translate_element" placeholder = "choose"></div>-->
                         	<div class="dropdown">
-                        		<a href="javascript(void:0)" class="text-muted dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="float:right;margin-top:10px; font-size:14px"><?=$bahasa?></a>
+                                <a href="javascript(void:0)" class="text-muted dropdown-toggle" data-toggle="modal" data-target="#modalbahasa" style="float:right;margin-top:10px; font-size:14px"><?=$bahasa?></a>
+                        		<!-- <a href="javascript(void:0)" class="text-muted dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="float:right;margin-top:10px; font-size:14px"><?=$bahasa?></a>
                         		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" onclick="change_bahasa('English')" href="#" style="font-size: 14px">English</a>
                                     <a class="dropdown-item" onclick="change_bahasa('Indonesia')" href="#" style="font-size: 14px">Indonesia</a>
-                                </div>
-                        </div>
+                                </div> -->
+                            </div>
 					</div>
 				</div>
 			</div>
@@ -372,3 +379,29 @@ if(isset($_SESSION['id'])){
                 </div>
             </div>
         </div>
+
+<div class="modal" tabindex="-1" role="dialog" id="modalbahasa" style="float:right; background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0);"> 
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <label for="">Currency</label><br>
+        <select name="currency" id="currency" class="custom-select">
+            <option value="IDR">IDR</option>
+            <option value="EURO">EURO</option>
+            <option value="USD">USD</option>
+        </select>
+        <br>
+        <label for="">Language</label><br>
+        <select name="bahasa" id="bahasa" class="custom-select" ">
+            <option value="Indonesia">Indonesia</otion>
+            <option value="English">English</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="change_bahasa()">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

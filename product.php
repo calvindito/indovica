@@ -4,9 +4,8 @@ include 'header.php';
 $product 		= mysqli_query($conn,"SELECT * FROM product where status = 'accepted'");
 $category 		= mysqli_query($conn,"SELECT * FROM category");
 
-$currency = 'IDR';
 $search ='';
-
+$currency = $_SESSION['currency'];
 if(isset($_GET['search'])){
 	$search = $_GET['search'];
 	$product = mysqli_query($conn,"SELECT * FROM product where name like '%$search%' where status = 'accepted'");
@@ -38,11 +37,14 @@ if(isset($_POST['submit_check'])){
   
     if($_POST['currency_check'] != ''){
         $currency = $_POST['currency_check'];
+		$_SESSION['currency']    = $currency;
     }else{
         $currency = 'IDR';
     }
    
 }
+
+
 ?>
 
 <style>
@@ -210,7 +212,7 @@ div.panel2.show {
     						          
     						            </div>
     						            <div class="col-7">
-    						                <Select class="custom-select" name="currency" onchange="getcurrency(this.value)">
+    						                <Select class="custom-select" name="currency" id="currency" onchange="getcurrency(this.value)">
     						                    <option value="IDR">IDR</option>
     						                    <option value="USD">USD</option>
     						                    <option value="EURO">EURO</option>
@@ -332,8 +334,7 @@ div.panel2.show {
 
         <?php
 include 'footer.php';
-?>
-<?php
+
     if(isset($_POST['sort_check'])){
 	if($_POST['sort_check'] == 'name'){
 
@@ -348,6 +349,8 @@ include 'footer.php';
     }
 ?>
 <script>
+	var make = <?=json_encode($currency)?>;
+$("#currency option[value='" + make + "']").attr("selected","selected");
 $('#low').attr('checked');
 document.addEventListener("DOMContentLoaded", function(event) { 
 var acc = document.getElementsByClassName("accordion");

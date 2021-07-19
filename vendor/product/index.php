@@ -97,11 +97,8 @@ $category = mysqli_query($conn,"SELECT * from category");
                                                         </div>       
                                                     <input type="file" class="form-control" multiple name="foto[]" id="foto"   >
                                                 </div>
-                                                
-                                                
 											</div>
                                         </div>
-                                    
                                     <div class="form-group">
                                         <div class="row">
 											<div class="col-sm-12">
@@ -110,7 +107,6 @@ $category = mysqli_query($conn,"SELECT * from category");
 											</div>
 										</div>
 									</div>
-
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-12">
@@ -135,36 +131,7 @@ $category = mysqli_query($conn,"SELECT * from category");
 											<div class="col-sm-12">
 												<label>Owner</label><br>
                                                 <div id="owner">
-                                                    <!--<div class="form-check form-check-inline">-->
-                                                    <!--    <label class="form-check-label">-->
-                                                    <!--        <input type="radio" class="form-check-input" name="owner"  value="Direct Artist" >-->
-                                                    <!--        Direct Artist-->
-                                                    <!--    </label>-->
-                                                    <!--</div>-->
-                                                    <!--<div class="form-check form-check-inline">-->
-                                                    <!--    <label class="form-check-label">-->
-                                                    <!--        <input type="radio" class="form-check-input" name="owner" value="Individual" >-->
-                                                    <!--        Individual-->
-                                                    <!--    </label>-->
-                                                    <!--</div>-->
-                                                    <!--<div class="form-check form-check-inline">-->
-                                                    <!--    <label class="form-check-label">-->
-                                                    <!--        <input type="radio" class="form-check-input" name="owner" value="Company" >-->
-                                                    <!--        Company-->
-                                                    <!--    </label>-->
-                                                    <!--</div>-->
-                                                    <!--<div class="form-check form-check-inline">-->
-                                                    <!--    <label class="form-check-label">-->
-                                                    <!--        <input type="radio" class="form-check-input" name="owner" value="Collector" >-->
-                                                    <!--        Collector-->
-                                                    <!--    </label>-->
-                                                    <!--</div>-->
-                                                    <!--<div class="form-check form-check-inline">-->
-                                                    <!--    <label class="form-check-label">-->
-                                                    <!--        <input type="radio" class="form-check-input" name="owner" value="Art Gallery" >-->
-                                                    <!--        Art Gallery-->
-                                                    <!--    </label>-->
-                                                    <!--</div>-->
+                                                  
                                                 </div>
 											</div>
 										</div>

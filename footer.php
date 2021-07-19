@@ -102,12 +102,13 @@
  			 new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,id', autoDisplay: false}, 'google_translate_element');
 		}
 		
-		function change_bahasa(kode){
-		    
-		    $.ajax({
+		function change_bahasa(){
+		    var kodebahasa = $('#bahasa').val();
+		    var kodecurrency = $('#currency').val();
+			$.ajax({
 					type: 'POST',
 					url: "bahasa.php",
-					data: {kode: kode},
+					data: {kodeb: kodebahasa,kodec:kodecurrency},
 					dataType: 'JSON',
 					success: function(data) {
 						location.reload();
