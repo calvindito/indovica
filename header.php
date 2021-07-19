@@ -156,7 +156,7 @@ if(isset($_SESSION['id'])){
 					<div class="col-6 ">
 						<!--<div class="dropdown" id="google_translate_element" placeholder = "choose"></div>-->
                         	<div class="dropdown">
-                                <a href="javascript(void:0)" class="text-muted dropdown-toggle" data-toggle="modal" data-target="#modalbahasa" style="float:right;margin-top:10px; font-size:14px"><?=$bahasa?></a>
+                                <a href="javascript(void:0)" class="text-muted dropdown-toggle" data-toggle="modal" data-target="#modalbahasa" style="float:right;margin-top:10px; font-size:14px"><?=strtoupper($bahasa)?> / <?=$currency?></a>
                         		<!-- <a href="javascript(void:0)" class="text-muted dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="float:right;margin-top:10px; font-size:14px"><?=$bahasa?></a>
                         		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" onclick="change_bahasa('English')" href="#" style="font-size: 14px">English</a>

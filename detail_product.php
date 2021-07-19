@@ -4,6 +4,36 @@ include 'header.php';
 
 $product_id = $_GET['kode'];
 $detail     = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM product where id = $product_id"));
+$currency_price = $detail['currency'];
+$product_price = $detail['public_price'];
+																	
+if($currency != 'IDR' && $currency_price != 'IDR' ){
+
+	$currency_sql 	= mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency_price'"));
+	$nominal        = $currency_sql['nominal'];
+	$idr            = $product_price * $nominal ;
+	
+	$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency'"));
+	$nominal2        = $currency2_sql['nominal'];
+	$harga          = $idr / $nominal2;
+	$simbol         = $currency2_sql['simbol'];
+}else if($currency == 'IDR' && $currency_price != 'IDR'){
+	$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency_price'"));
+	$nominal2        = $currency2_sql['nominal'];
+	$harga          = $product_price * $nominal2;
+	$simbol         = 'Rp';
+   
+}else if($currency != 'IDR' && $currency_price == 'IDR'){
+	$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency'"));
+	$nominal2        = $currency2_sql['nominal'];
+	$harga          = $product_price / $nominal2;
+	$simbol         = $currency2_sql['simbol'];
+   
+}
+   else{
+   $simbol = 'Rp';
+   $harga = $product_price;
+}
 if(!isset($product_id) || !$detail) {
     echo '<script>alert("Product not found!")</script>';
     echo '<script>document.location.href="shop.php"</script>';
@@ -40,7 +70,7 @@ if(isset($_POST['add_to_cart'])) {
 
 			<div class="container clearfix">
 				<h1><?=$detail['name']?></h1>
-				<span>Watches</span>
+
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="#">Home</a></li>
 					<li class="breadcrumb-item active" aria-current="page">Product</li>
@@ -65,7 +95,7 @@ if(isset($_POST['add_to_cart'])) {
 								<div class="col-xl-7 col-lg-5 mb-0 sticky-sidebar-wrap">
 									<div class="masonry-thumbs grid-container grid-2" data-lightbox="gallery">
                                         <?php for($i= 0;$i < count($image) ; $i++){?>
-										<a class="grid-item" href="assets/store/images/foto_produk/<?=$image[$i]?>" data-lightbox="gallery-item"><img src="assets/store/images/foto_produk/<?=$image[$i]?>" alt="Watch 1"></a>
+										<a class="grid-item" href="global_assets/images/foto_produk/<?=$image[$i]?>" data-lightbox="gallery-item"><img src="global_assets/images/foto_produk/<?=$image[$i]?>" alt="Watch 1"></a>
 										<?php } ?>
 									</div>
 
@@ -76,7 +106,7 @@ if(isset($_POST['add_to_cart'])) {
 
 										<!-- Product Single - Price
 										============================================= -->
-										<div class="product-price"> <ins>Rp <?= number_format($detail['price']); ?></ins></div><!-- Product Single - Price End -->
+										<div class="product-price"> <ins><?=$simbol?> <?= number_format($harga); ?></ins></div><!-- Product Single - Price End -->
 
 										<!-- Product Single - Rating
 										============================================= -->
@@ -107,19 +137,14 @@ if(isset($_POST['add_to_cart'])) {
 									<div class="line line-sm"></div>
 
 									<div data-readmore="true" data-readmore-size="250px" data-readmore-trigger-open="Read More <i class='icon-angle-down'></i>" data-readmore-trigger-close="false">
-<h3>Vintage Art</h3>
-
-										<!-- Product Single - Short Description
-										============================================= -->
-									<p><i>"something from the past of high quality...representing the best of its kind".</i><br><br>
-Vintage art is defined by <i>us</i> as high quality art from the 18th century to 1950s, characterized by excellence and enduring appeal.
-Most vintage art was created by talented professional illustrators, who specialized in accurately portraying the natural world.</p>
-										<!-- <ul class="iconlist mb-0">
-											<li><i class="icon-caret-right"></i> Dynamic Color Options</li>
-											<li><i class="icon-caret-right"></i> Lots of Size Options</li>
-											<li><i class="icon-caret-right"></i> 30-Day Return Policy</li>
-										</ul> -->
-										<!-- Product Single - Short Description End -->
+									<h3><?=$detail['name']?></h3>
+									<ul class="iconlist">
+										<li><i class="icon-caret-right"></i> Size : <?=$detail['size']?> cm</li>
+										<li><i class="icon-caret-right"></i> Weight : <?=$detail['weight']?> gr</li>
+										<li><i class="icon-caret-right"></i> Year : <?=$detail['year']?></li>
+									</ul>
+									<p><i><?=$detail['description']?></p>
+										
 
 										<a href="#" class="btn btn-dark btn-sm read-more-trigger"></a>
 									</div>
