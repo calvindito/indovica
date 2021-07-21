@@ -113,14 +113,15 @@ if(isset($_POST['add_to_cart'])) {
 
 								</div>
 								<div class="col-xl-5 col-lg-7 mb-0">
-
+								    	<b>Price</b>
 									<div class="d-flex align-items-center justify-content-between">
 
 										<!-- Product Single - Price
 										============================================= -->
-										<div class="product-price"> <ins>IDR <?= number_format($harga_idr); ?></ins><br>
-										<ins>USD <?= number_format($harga_usd); ?></ins><br>
-										<ins>EURO <?= number_format($harga_euro); ?></ins>
+									
+										<div class=""> IDR <?= number_format($harga_idr); ?><br>
+										USD <?= number_format($harga_usd); ?><br>
+										EURO <?= number_format($harga_euro); ?>
 									</div><!-- Product Single - Price End -->
 
 										<!-- Product Single - Rating

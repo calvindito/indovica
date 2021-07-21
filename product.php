@@ -5,7 +5,6 @@ $product 		= mysqli_query($conn,"SELECT * FROM product where status = 'accepted'
 $category 		= mysqli_query($conn,"SELECT * FROM category");
 
 $search ='';
-$currency = $_SESSION['currency'];
 if(isset($_GET['search'])){
 	$search = $_GET['search'];
 	$product = mysqli_query($conn,"SELECT * FROM product where name like '%$search%' where status = 'accepted'");
@@ -301,14 +300,20 @@ div.panel2.show {
 								</div>
 								</div>
 								
-								<div clas="col-5">
-								<div class="">IDR <?=number_format($harga_idr)?></div>
-								<div class="">USD <?=number_format($harga_usd)?></div>
-								<div >EURO <?=number_format($harga_euro)?></div>
+								<div clas="col-5" style="width:40%;"  class="align-self-center">
+									<div>
+										<b>Product Name :</b><br>
+										<?=strtoupper($product_name);?>
+										<br><br>
+										<b>Price : </b>
+										<div class="">IDR <?=number_format($harga_idr)?></div>
+										<div class="">USD <?=number_format($harga_usd)?></div>
+										<div >EURO <?=number_format($harga_euro)?></div>
+									</div>
 								</div>
 								</div>
 								<div class="product-desc">
-									<div class="product-title mb-1"><b><?=$product_name?></a></b></h3></div><br>
+									<!-- <div class="product-title mb-1"><b><?=$product_name?></a></b></h3></div><br> -->
 									<!-- <div class="product-price font-primary"><ins><?=$simbol?> <?=number_format($harga)?></ins></div> -->
 								</div>
 							</div>

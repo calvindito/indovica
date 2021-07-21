@@ -227,7 +227,7 @@ body {
 							<div class="product">
 								<div class="product-image">
 									<?php for($i=0;$i<count($product_image);$i++){?>
-									<a href="#"><img src="<?=$base_url?>global_assets/images/foto_produk/<?=$product_image[$i]?>" alt="Round Neck T-shirts"></a>
+									<a href="#"><img src="<?=$base_url?>global_assets/images/foto_produk/<?=$product_image[$i]?>" alt="Round Neck T-shirts" style="height:150px"></a>
 									<?php } ?>
 									<div class="bg-overlay">
 										<div class="bg-overlay-content align-items-end justify-content-between" data-hover-animate="fadeIn" data-hover-speed="400">
@@ -264,45 +264,44 @@ body {
 						<?php if(mysqli_num_rows($product)>0) {
 								while($row = mysqli_fetch_assoc($product_recommend)){
 										$product_id 	= $row['id'];
-										$product_name 	= $row['name'];
-										$product_image 	= explode(',',$row['image']);
-										$product_price 	= $row['public_price'];
-										
+									$product_name 	= $row['name'];
+									$product_image 	= explode(',',$row['image']);
+									$product_price 	= $row['public_price'];
 									$currency_price = $row['currency'];
-																	
-										if($currency != 'IDR' && $currency_price != 'IDR' ){
+							
+								   if($currency != 'IDR' && $currency_price != 'IDR' ){
 								  
-											$currency_sql 	= mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency_price'"));
-											$nominal        = $currency_sql['nominal'];
-											$idr            = $product_price * $nominal ;
-											
-											$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency'"));
-											$nominal2        = $currency2_sql['nominal'];
-											$harga          = $idr / $nominal2;
-											$simbol         = $currency2_sql['simbol'];
-									   }else if($currency == 'IDR' && $currency_price != 'IDR'){
-											$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency_price'"));
-											$nominal2        = $currency2_sql['nominal'];
-											$harga          = $product_price * $nominal2;
-											$simbol         = 'Rp';
-										   
-									   }else if($currency != 'IDR' && $currency_price == 'IDR'){
-											$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency'"));
-											$nominal2        = $currency2_sql['nominal'];
-											$harga          = $product_price / $nominal2;
-											$simbol         = $currency2_sql['simbol'];
-										   
-									   }
-										   else{
-										   $simbol = 'Rp';
-										   $harga = $product_price;
-									   }
+										$currency_sql 	= mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency_price'"));
+										$nominal        = $currency_sql['nominal'];
+										$idr            = $product_price * $nominal ;
+										
+										$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency'"));
+										$nominal2        = $currency2_sql['nominal'];
+										$harga          = $idr / $nominal2;
+										$simbol         = $currency2_sql['simbol'];
+								   }else if($currency == 'IDR' && $currency_price != 'IDR'){
+										$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency_price'"));
+										$nominal2        = $currency2_sql['nominal'];
+										$harga          = $product_price * $nominal2;
+										$simbol         = 'Rp';
+									   
+								   }else if($currency != 'IDR' && $currency_price == 'IDR'){
+										$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency'"));
+										$nominal2        = $currency2_sql['nominal'];
+										$harga          = $product_price / $nominal2;
+										$simbol         = $currency2_sql['simbol'];
+									   
+								   }
+									   else{
+									   $simbol = 'Rp';
+									   $harga = $product_price;
+								   }
 								?>
 						<div class="oc-item">
 							<div class="product">
 								<div class="product-image">
 									<?php for($i=0;$i<count($product_image);$i++){?>
-									<a href="#"><img src="<?=$base_url?>global_assets/images/foto_produk/<?=$product_image[$i]?>" alt="Round Neck T-shirts"></a>
+									<a href="#"><img src="<?=$base_url?>global_assets/images/foto_produk/<?=$product_image[$i]?>" alt="Round Neck T-shirts" style="height:150px"></a>
 									<?php } ?>
 									<div class="bg-overlay">
 										<div class="bg-overlay-content align-items-end justify-content-between" data-hover-animate="fadeIn" data-hover-speed="400">
@@ -314,7 +313,7 @@ body {
 								</div>
 								<div class="product-desc">
 									<div class="product-title mb-1"><?=$product_name?></a></h3></div><br>
-									<div class="product-price font-primary"><ins><?=$simbol?><?=number_format($product_price)?></ins></div>
+									<div class="product-price font-primary"><ins><?=$simbol?><?=number_format($harga)?></ins></div>
 								</div>
 							</div>
 						</div>
