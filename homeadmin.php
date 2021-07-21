@@ -346,7 +346,7 @@ session_start();
 		var jumlahcicilan =$("#kuantiti").val();
 		var total = 0 ;
 		for (let i = 1; i <= jumlahcicilan; i++) {
-			var j = $("#cicilan"+i);
+			var j = $("#cicilan"+i).val();
 			j = j.replace(/\D+/g, "");
 			total += parseInt(j);
 		}
