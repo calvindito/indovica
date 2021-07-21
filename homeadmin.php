@@ -60,7 +60,7 @@ session_start();
 								<label class="control-label">Currency</label>
 								<div>
 									<select class="form-control" name="currency" id="currency">
-										<option value="IDR">IDR</option>
+							
 										<option value="EURO">EURO</option>
 										<option value="USD">USD</option>
 									</select>
@@ -345,7 +345,7 @@ session_start();
 	function rupiah_cicilan(idx, x) {
 		var jumlahcicilan =$("#kuantiti").val();
 		var total = 0 ;
-		for (let i = 0; i < jumlahcicilan; i++) {
+		for (let i = 1; i <= jumlahcicilan; i++) {
 			var j = $("#cicilan"+i);
 			j = j.replace(/\D+/g, "");
 			total += parseInt(j);
