@@ -348,7 +348,10 @@ session_start();
 		for (let i = 1; i <= jumlahcicilan; i++) {
 			var j = $("#cicilan"+i).val();
 			j = j.replace(/\D+/g, "");
-			total += parseInt(j);
+			if(j == ""){
+				j = 0;
+			}
+			total = parseInt(total)+parseInt(j);
 		}
 		a = $('#totalnominalcicilan').val();
 		a = a.replace(/\D+/g, "");
@@ -357,7 +360,7 @@ session_start();
       	var y = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
       	$("#"+idx).val(y);
 	  	var b = parseInt(a) - parseInt(total);
-	  $("#kurang").html(b);
+	  $("#kurang").html(total);
     }
     
 	function buatkode(myid)
