@@ -369,6 +369,7 @@ session_start();
 	  if(b < 0){
 		  alert('Installments exceed the total');
 		  $("#"+idx).val(0);
+		  total = 0 ;
 		for (let i = 1; i <= jumlahcicilan; i++) {
 			var j = $("#cicilan"+i).val();
 			j = j.replace(/\D+/g, "");
