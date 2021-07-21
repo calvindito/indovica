@@ -343,7 +343,7 @@ session_start();
     }
 
 	function rupiah_cicilan(idx, x) {
-		var jumlahcilan =$("#kuantiti").val();
+		var jumlahcicilan =$("#kuantiti").val();
 		var total = 0 ;
 		for (let i = 0; i < jumlahcicilan; i++) {
 			var j = $("#cicilan"+i);
