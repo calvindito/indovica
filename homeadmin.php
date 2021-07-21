@@ -357,7 +357,7 @@ session_start();
       	var y = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
       	$("#"+idx).val(y);
 	  	var b = parseInt(a) - parseInt(total);
-	  $("#kurang").html(b);
+	  $("#kurang").html(total);
     }
     
 	function buatkode(myid)
