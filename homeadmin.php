@@ -344,7 +344,7 @@ session_start();
 
 	function rupiah_cicilan(idx, x) {
 		var jumlahcicilan =$("#totalcicilan").val();
-		cosole.log(jumlahcicilan);
+		console.log(jumlahcicilan);
 		var total = 0 ;
 		for (let i = 1; i <= jumlahcicilan; i++) {
 			var j = $("#cicilan"+i).val();
