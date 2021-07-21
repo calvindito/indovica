@@ -343,7 +343,7 @@ session_start();
     }
 
 	function rupiah_cicilan(idx, x) {
-		var jumlahcicilan =$("#kuantiti").val();
+		var jumlahcicilan =$("#totalcicilan").val();
 		var total = 0 ;
 		for (let i = 1; i <= jumlahcicilan; i++) {
 			var j = $("#cicilan"+i).val();
@@ -357,7 +357,7 @@ session_start();
       	var y = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
       	$("#"+idx).val(y);
 	  	var b = parseInt(a) - parseInt(total);
-	  $("#kurang").html(total);
+	  $("#kurang").html(b);
     }
     
 	function buatkode(myid)
