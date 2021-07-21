@@ -55,10 +55,19 @@ session_start();
 
 						<form method="POST" enctype='multipart/form-data' id="formbuatuser">
 							<input type="hidden" name="tipe" value="buatuser">
+							<input type="hidden" name="total" id="totalsekarang" value="0">
 							<h3>Inventory</h3>
-							
 							<div class="form-group">
-								<label class="control-label">Item Value</label>
+								<label class="control-label">Currency</label>
+								<div>
+									<select class="form-control" name="currency" id="currency">
+										<option value="EURO">EURO</option>
+										<option value="USD">USD</option>
+									</select>
+								</div>
+							</div>	
+							<div class="form-group">
+								<label class="control-label">Item Price</label>
 								<div>
 									<input type="text" class="form-control input-lg" name="totalnominalcicilan" onkeyup="rupiah('totalnominalcicilan',this.value)" id="totalnominalcicilan" value="" required>
 								</div>
@@ -81,6 +90,9 @@ session_start();
 									<label for="javascript">Intermediary/Mandate</label>
 								</div>
 							</div>
+							<div id="kurang">
+
+							</div>
 							<div id="tambahan">
 							
 
@@ -93,7 +105,7 @@ session_start();
 										<label class="control-label">Installment Quantity</label>
 										<div class="row">
 											<div class="col-lg-8">
-												<input type="number" name="kuantiticicilan" class="form-control input-lg"
+												<input type="number" name="kuantiticicilan" id="kuantiti" class="form-control input-lg"
 													value="" id="totalcicilan"
 													onInput="return isNumberKeygenerate(event)" />
 											</div>
@@ -329,6 +341,24 @@ session_start();
       y = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
       $("#"+idx).val(y);
     }
+
+	function rupiah_cicilan(idx, x) {
+		var jumlahcilan =$("#kuantiti").val();
+		var total = 0 ;
+		for (let i = 0; i < jumlah; i++) {
+			var j = $("#cicilan"+i);
+			j = j.replace(/\D+/g, "");
+			total += parseInt(j);
+		}
+		a = $('#totalnominalcicilan').val();
+		a = a.replace(/\D+/g, "");
+	  
+		x = x.replace(/\D+/g, "");
+      	var y = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      	$("#"+idx).val(y);
+	  	var b = parseInt(a) - parseInt(total);
+	  $("#kurang").html(b);
+    }
     
 	function buatkode(myid)
 	{
@@ -395,7 +425,7 @@ session_start();
 			for (var i = 1; i <= myval; i++) {
 
 				var fieldHTML = '<div> <label class="control-label">Cicilan ke -' + i +
-					'</label> <input type="text" class = "form-control input-lg" name="cicilan[]" id="cicilan'+i+'" onkeyup="rupiah(this.id, this.value)" value="" required/></div>'; //New input field html 
+					'</label> <input type="text" class = "form-control input-lg" name="cicilan[]" id="cicilan'+i+'" onkeyup="rupiah_cicilan(this.id, this.value)" value="" required/></div>'; //New input field html 
 				$(wrapper).append(fieldHTML); //Add field html
 			}
 		}
