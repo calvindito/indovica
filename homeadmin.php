@@ -345,7 +345,7 @@ session_start();
 	function rupiah_cicilan(idx, x) {
 		var jumlahcilan =$("#kuantiti").val();
 		var total = 0 ;
-		for (let i = 0; i < jumlahcicial; i++) {
+		for (let i = 0; i < jumlahcicilan; i++) {
 			var j = $("#cicilan"+i);
 			j = j.replace(/\D+/g, "");
 			total += parseInt(j);
