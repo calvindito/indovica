@@ -366,6 +366,23 @@ session_start();
       	$("#"+idx).val(y);
 	  	var b = parseInt(a) - parseInt(total);
 	  $("#kurang").html("<p>Not entered installments : "+b+"</p>");
+	  if(b < 0){
+		  alert('Installments exceed the total');
+		  $("#"+idx).val(0);
+		for (let i = 1; i <= jumlahcicilan; i++) {
+			var j = $("#cicilan"+i).val();
+			j = j.replace(/\D+/g, "");
+			if(j == ""){
+				j = 0;
+			}
+	
+			total = parseInt(total)+parseInt(j);
+			b = parseInt(a) - parseInt(total);
+	  		$("#kurang").html("<p>Not entered installments : "+b+"</p>");
+		}
+
+	  }
+
     }
     
 	function buatkode(myid)
