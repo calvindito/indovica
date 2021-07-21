@@ -90,9 +90,7 @@ session_start();
 									<label for="javascript">Intermediary/Mandate</label>
 								</div>
 							</div>
-							<div id="kurang">
-
-							</div>
+							
 							<div id="tambahan">
 							
 
@@ -117,6 +115,11 @@ session_start();
 										</div>
 
 									</div>
+									<br>
+									<div id="kurang" class="form-group">
+										
+									</div>
+									<br>
 									<div id="dinamicinput"></div>
 								</div>
 							</div>
@@ -362,7 +365,7 @@ session_start();
       	var y = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
       	$("#"+idx).val(y);
 	  	var b = parseInt(a) - parseInt(total);
-	  $("#kurang").html(b);
+	  $("#kurang").html("<p>Not entered installments : "+b+"</p>");
     }
     
 	function buatkode(myid)
