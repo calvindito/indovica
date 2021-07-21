@@ -344,7 +344,7 @@ session_start();
 
 	function rupiah_cicilan(idx, x) {
 		var jumlahcicilan =$("#totalcicilan").val();
-		console.log(jumlahcicilan);
+		
 		var total = 0 ;
 		for (let i = 1; i <= jumlahcicilan; i++) {
 			var j = $("#cicilan"+i).val();
@@ -352,17 +352,17 @@ session_start();
 			if(j == ""){
 				j = 0;
 			}
-			console.log(total);
+	
 			total = parseInt(total)+parseInt(j);
 		}
-		a = $('#totalnominalcicilan').val();
+		var a = $('#totalnominalcicilan').val();
 		a = a.replace(/\D+/g, "");
 	  
 		x = x.replace(/\D+/g, "");
       	var y = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
       	$("#"+idx).val(y);
 	  	var b = parseInt(a) - parseInt(total);
-	  $("#kurang").html(total);
+	  $("#kurang").html(b);
     }
     
 	function buatkode(myid)
