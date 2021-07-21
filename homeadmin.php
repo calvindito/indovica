@@ -90,6 +90,9 @@ session_start();
 									<label for="javascript">Intermediary/Mandate</label>
 								</div>
 							</div>
+							<div id="kurang">
+
+							</div>
 							<div id="tambahan">
 							
 
@@ -338,6 +341,24 @@ session_start();
       y = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
       $("#"+idx).val(y);
     }
+
+	function rupiah_cicilan(idx, x) {
+		var jumlahcilan =$("#kuantiti").val();
+		var total = 0 ;
+		for (let i = 0; i < jumlah; i++) {
+			var j = $("#cicilan"+i);
+			j = j.replace(/\D+/g, "");
+			total += parseInt(j);
+		}
+		a = $('#totalnominalcicilan').val();
+		a = a.replace(/\D+/g, "");
+	  
+		x = x.replace(/\D+/g, "");
+      	var y = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      	$("#"+idx).val(y);
+	  	var b = parseInt(a) - parseInt(total);
+	  $("#kurang").html(b);
+    }
     
 	function buatkode(myid)
 	{
@@ -404,7 +425,7 @@ session_start();
 			for (var i = 1; i <= myval; i++) {
 
 				var fieldHTML = '<div> <label class="control-label">Cicilan ke -' + i +
-					'</label> <input type="text" class = "form-control input-lg" name="cicilan[]" id="cicilan'+i+'" onkeyup="rupiah(this.id, this.value)" value="" required/></div>'; //New input field html 
+					'</label> <input type="text" class = "form-control input-lg" name="cicilan[]" id="cicilan'+i+'" onkeyup="rupiah_cicilan(this.id, this.value)" value="" required/></div>'; //New input field html 
 				$(wrapper).append(fieldHTML); //Add field html
 			}
 		}
