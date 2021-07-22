@@ -286,7 +286,7 @@ div.panel2.show {
 								
 								<div class="product-image">
 									<?php for($i=0;$i<count($product_image);$i++){?>
-									<a href="#"><img src="<?=$base_url?>global_assets/images/foto_produk/<?=$product_image[$i]?>" height="200px" ></a>
+									<a href=""><img src="<?=$base_url?>global_assets/images/foto_produk/<?=$product_image[$i]?>" height="200px" ></a>
 									
 									<?php }
 									?>

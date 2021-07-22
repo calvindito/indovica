@@ -281,7 +281,7 @@ if(isset($_SESSION['id'])){
     										{
     									?>
     
-                                            <div class="top-cart-item">
+                                            
                                                 <?php $total_cart = 0; ?>
                                                 <?php while($row = mysqli_fetch_assoc($cart)) { 
     													$image 	= explode(',',$row['image']);
@@ -290,9 +290,10 @@ if(isset($_SESSION['id'])){
     													$price 	= $row['price'];
     													$total_cart += ($qty * $price);
     												?>
+                                                <div class="top-cart-item">
                                                 <div class="top-cart-item-image">
                                                     <a href="#"><img
-                                                            src="<?=$base_url?>assets/store/images/foto_produk/<?=$image[0]?>"
+                                                            src="<?=$base_url?>global_assets/images/foto_produk/<?=$image[0]?>"
                                                             alt="Blue Shoulder Bag" /></a>
                                                 </div>
                                                 <div class="top-cart-item-desc">

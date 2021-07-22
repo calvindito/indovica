@@ -193,34 +193,37 @@ body {
 									$product_image 	= explode(',',$row['image']);
 									$product_price 	= $row['public_price'];
 									$currency_price = $row['currency'];
-							
-								   if($currency != 'IDR' && $currency_price != 'IDR' ){
-								  
-										$currency_sql 	= mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency_price'"));
-										$nominal        = $currency_sql['nominal'];
-										$idr            = $product_price * $nominal ;
-										
-										$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency'"));
+								
+									   if($currency_price == 'USD' ){
+									  
+										$harga_usd = $product_price;
+										$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='USD'"));
 										$nominal2        = $currency2_sql['nominal'];
-										$harga          = $idr / $nominal2;
-										$simbol         = $currency2_sql['simbol'];
-								   }else if($currency == 'IDR' && $currency_price != 'IDR'){
-										$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency_price'"));
+										$harga_idr          = $product_price * $nominal2;
+										$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='EURO'"));
 										$nominal2        = $currency2_sql['nominal'];
-										$harga          = $product_price * $nominal2;
-										$simbol         = 'Rp';
-									   
-								   }else if($currency != 'IDR' && $currency_price == 'IDR'){
-										$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency'"));
-										$nominal2        = $currency2_sql['nominal'];
-										$harga          = $product_price / $nominal2;
-										$simbol         = $currency2_sql['simbol'];
-									   
-								   }
-									   else{
-									   $simbol = 'Rp';
-									   $harga = $product_price;
-								   }
+										$harga_euro         = $harga_idr / $nominal2;
+									   }else if($currency_price == 'EURO'){
+										   $harga_euro = $product_price;
+									        $currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='EURO'"));
+									        $nominal2        = $currency2_sql['nominal'];
+									        $harga_idr          = $product_price * $nominal2;
+											$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='USD'"));
+									        $nominal2        = $currency2_sql['nominal'];
+									        $harga_usd          = $harga_idr / $nominal2;
+									
+					
+									   }else if($currency_price == 'IDR'){
+										   $harga_idr = $product_price;
+									        $currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='USD'"));
+									        $nominal2        = $currency2_sql['nominal'];
+									        $harga_usd          = $product_price / $nominal2;
+
+											$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='EURO'"));
+									        $nominal2        = $currency2_sql['nominal'];
+									        $harga_euro          = $product_price / $nominal2;
+									       
+									   }
 								 
 								?>
 						<div class="oc-item">
@@ -239,7 +242,11 @@ body {
 								</div>
 								<div class="product-desc">
 									<div class="product-title mb-1"><?=$product_name?></a></h3></div><br>
-									<div class="product-price font-primary"><ins><?=$simbol?> <?=number_format($harga)?></ins></div>
+									<div class="product-price font-primary"><ins>IDR <?=number_format($harga_idr)?></ins></div>
+									
+									<div class="product-price font-primary"><ins>EURO <?=number_format($harga_euro)?></ins></div>
+									
+									<div class="product-price font-primary"><ins>USD <?=number_format($harga_usd)?></ins></div>
 								</div>
 							</div>
 						</div>
@@ -269,32 +276,62 @@ body {
 									$product_price 	= $row['public_price'];
 									$currency_price = $row['currency'];
 							
-								   if($currency != 'IDR' && $currency_price != 'IDR' ){
+								//    if($currency != 'IDR' && $currency_price != 'IDR' ){
 								  
-										$currency_sql 	= mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency_price'"));
-										$nominal        = $currency_sql['nominal'];
-										$idr            = $product_price * $nominal ;
+								// 		$currency_sql 	= mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency_price'"));
+								// 		$nominal        = $currency_sql['nominal'];
+								// 		$idr            = $product_price * $nominal ;
 										
-										$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency'"));
-										$nominal2        = $currency2_sql['nominal'];
-										$harga          = $idr / $nominal2;
-										$simbol         = $currency2_sql['simbol'];
-								   }else if($currency == 'IDR' && $currency_price != 'IDR'){
-										$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency_price'"));
-										$nominal2        = $currency2_sql['nominal'];
-										$harga          = $product_price * $nominal2;
-										$simbol         = 'Rp';
+								// 		$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency'"));
+								// 		$nominal2        = $currency2_sql['nominal'];
+								// 		$harga          = $idr / $nominal2;
+								// 		$simbol         = $currency2_sql['simbol'];
+								//    }else if($currency == 'IDR' && $currency_price != 'IDR'){
+								// 		$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency_price'"));
+								// 		$nominal2        = $currency2_sql['nominal'];
+								// 		$harga          = $product_price * $nominal2;
+								// 		$simbol         = 'Rp';
 									   
-								   }else if($currency != 'IDR' && $currency_price == 'IDR'){
-										$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency'"));
-										$nominal2        = $currency2_sql['nominal'];
-										$harga          = $product_price / $nominal2;
-										$simbol         = $currency2_sql['simbol'];
+								//    }else if($currency != 'IDR' && $currency_price == 'IDR'){
+								// 		$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency'"));
+								// 		$nominal2        = $currency2_sql['nominal'];
+								// 		$harga          = $product_price / $nominal2;
+								// 		$simbol         = $currency2_sql['simbol'];
 									   
-								   }
-									   else{
-									   $simbol = 'Rp';
-									   $harga = $product_price;
+								//    }
+								// 	   else{
+								// 	   $simbol = 'Rp';
+								// 	   $harga = $product_price;
+								//    }
+								if($currency_price == 'USD' ){
+									  
+									$harga_usd = $product_price;
+									$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='USD'"));
+									$nominal2        = $currency2_sql['nominal'];
+									$harga_idr          = $product_price * $nominal2;
+									$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='EURO'"));
+									$nominal2        = $currency2_sql['nominal'];
+									$harga_euro         = $harga_idr / $nominal2;
+								   }else if($currency_price == 'EURO'){
+									   $harga_euro = $product_price;
+										$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='EURO'"));
+										$nominal2        = $currency2_sql['nominal'];
+										$harga_idr          = $product_price * $nominal2;
+										$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='USD'"));
+										$nominal2        = $currency2_sql['nominal'];
+										$harga_usd          = $harga_idr / $nominal2;
+								
+				
+								   }else if($currency_price == 'IDR'){
+									   $harga_idr = $product_price;
+										$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='USD'"));
+										$nominal2        = $currency2_sql['nominal'];
+										$harga_usd          = $product_price / $nominal2;
+
+										$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='EURO'"));
+										$nominal2        = $currency2_sql['nominal'];
+										$harga_euro          = $product_price / $nominal2;
+									   
 								   }
 								?>
 						<div class="oc-item">
@@ -313,7 +350,11 @@ body {
 								</div>
 								<div class="product-desc">
 									<div class="product-title mb-1"><?=$product_name?></a></h3></div><br>
-									<div class="product-price font-primary"><ins><?=$simbol?><?=number_format($harga)?></ins></div>
+									<div class="product-price font-primary"><ins>IDR <?=number_format($harga_idr)?></ins></div>
+									
+									<div class="product-price font-primary"><ins>EURO <?=number_format($harga_euro)?></ins></div>
+									
+									<div class="product-price font-primary"><ins>USD <?=number_format($harga_usd)?></ins></div>
 								</div>
 							</div>
 						</div>
