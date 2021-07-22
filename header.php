@@ -35,7 +35,7 @@ if($bahasa == 'English'){
 }
 if(isset($_SESSION['id'])){
     $customer_id = $_SESSION['id'];
-	$cart = mysqli_query($conn, "SELECT cart.id, cart.qty,cart.product_id, product.name, product.image, product.price FROM cart LEFT JOIN product ON product.id = cart.product_id  WHERE cart.customer_id = '$customer_id'  group by cart.product_id");
+	$cart = mysqli_query($conn, "SELECT cart.id, cart.qty,cart.product_id, product.name, product.image, product.public_price,product.currency FROM cart LEFT JOIN product ON product.id = cart.product_id  WHERE cart.customer_id = '$customer_id'  group by cart.product_id");
     $total_cart2 = mysqli_fetch_assoc(mysqli_query($conn,"SELECT sum(qty) as qty from cart where customer_id = $customer_id"));
     $total = $total_cart2['qty'];
     
@@ -287,8 +287,37 @@ if(isset($_SESSION['id'])){
     													$image 	= explode(',',$row['image']);
     													$name 	= $row['name'];
     													$qty 	= $row['qty'];
-    													$price 	= $row['price'];
-    													$total_cart += ($qty * $price);
+                                                        $product_price 	= $row['public_price'];
+                                                        $currency_price = $row['currency'];
+                                                
+                                                       if($currency != 'IDR' && $currency_price != 'IDR' ){
+                                                      
+                                                    		$currency_sql 	= mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency_price'"));
+                                                    		$nominal        = $currency_sql['nominal'];
+                                                    		$idr            = $product_price * $nominal ;
+                                                            
+                                                    		$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency'"));
+                                                    		$nominal2        = $currency2_sql['nominal'];
+                                                    		$harga          = $idr / $nominal2;
+                                                    		$simbol         = $currency2_sql['simbol'];
+                                                       }else if($currency == 'IDR' && $currency_price != 'IDR'){
+                                                    		$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency_price'"));
+                                                    		$nominal2        = $currency2_sql['nominal'];
+                                                    		$harga          = $product_price * $nominal2;
+                                                    		$simbol         = 'Rp';
+                                                           
+                                                       }else if($currency != 'IDR' && $currency_price == 'IDR'){
+                                                    		$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency'"));
+                                                    		$nominal2        = $currency2_sql['nominal'];
+                                                    		$harga          = $product_price / $nominal2;
+                                                    		$simbol         = $currency2_sql['simbol'];
+                                                           
+                                                       }
+                                                    	   else{
+                                                    	   $simbol = 'Rp';
+                                                    	   $harga = $product_price;
+                                                       }
+    													$total_cart += ($qty * $harga);
     												?>
                                                 <div class="top-cart-item">
                                                 <div class="top-cart-item-image">
@@ -299,8 +328,8 @@ if(isset($_SESSION['id'])){
                                                 <div class="top-cart-item-desc">
                                                     <div class="top-cart-item-desc-title">
                                                         <a href="#" class="font-weight-normal"><?=$name?></a>
-                                                        <span class="top-cart-item-price d-block">Rp
-                                                            <?= number_format($price); ?></span>
+                                                        <span class="top-cart-item-price d-block"><?=$simbol?>
+                                                            <?= number_format($harga); ?></span>
                                                     </div>
                                                     <div class="top-cart-item-quantity font-weight-semibold">x <?=$qty?>
                                                     </div>
