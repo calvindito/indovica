@@ -365,7 +365,7 @@ function loadData() {
             $('#address').val(response.address);
             $('#name').val(response.name);
             $('#category').val(response.category_name);
-            $('#owner').val(response.owner);
+            $('#owner').val(response.ownerr);
             $('#size').val(response.size);
             $('#year').val(response.year);
             $('#material').val(response.material);

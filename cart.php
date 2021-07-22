@@ -2,7 +2,7 @@
 session_start();
 include 'header.php';
 
-$cart = mysqli_query($conn,"SELECT * FROM cart join product on product.id = cart.product_id where customer_id = $customer_id");
+$cart = mysqli_query($conn,"SELECT *, cart.id as id_cart FROM cart join product on product.id = cart.product_id where customer_id = $customer_id");
 // if($cart)
 // {
 // 	echo "test";
@@ -57,7 +57,7 @@ $cart = mysqli_query($conn,"SELECT * FROM cart join product on product.id = cart
 								</td>
 
 								<td class="cart-product-thumbnail">
-									<a href="#"><img width="64" height="64" src="<?=$base_url?>assets/images/foto_produk/<?=$image[0]?>" alt="<?=$row['name']?>"></a>
+									<a href="#"><img width="64" height="64" src="<?=$base_url?>global_assets/images/foto_produk/<?=$image[0]?>" alt="<?=$row['name']?>"></a>
 								</td>
 
 								<td class="cart-product-name">
