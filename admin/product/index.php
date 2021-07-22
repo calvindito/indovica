@@ -4,6 +4,7 @@ include '../../connection.php';
 include '../header.php' ;
 
 $category = mysqli_query($conn,"SELECT * from category");
+
 ?>
 
 <!-- Main content -->
@@ -120,11 +121,11 @@ $category = mysqli_query($conn,"SELECT * from category");
                                         <div class="row">
 											<div class="col-sm-6">
 												<label>Vendor</label>
-												<input type="text" placeholder="Kopyov" name="vendor" id="vendor" class="form-control" readonly>
+												<input type="text" placeholder="Kopyov" name="vendor" id="vendor" class="form-control" >
 											</div>
                                             <div class="col-sm-6">
 												<label>Email</label>
-												<input type="text" placeholder="Kopyov" name="email" id="email" class="form-control" readonly>
+												<input type="text" placeholder="Kopyov" name="email" id="email" class="form-control" >
 											</div>
 										</div>
 									</div>
@@ -132,11 +133,11 @@ $category = mysqli_query($conn,"SELECT * from category");
                                         <div class="row">
 											<div class="col-sm-6">
 												<label>Phone</label>
-												<input type="text" placeholder="Kopyov" name="phone" id="phone" class="form-control" readonly>
+												<input type="text" placeholder="Kopyov" name="phone" id="phone" class="form-control" >
 											</div>
                                             <div class="col-sm-6">
 												<label>Adress</label>
-												<textarea name="address" id="address" cols="30" rows="5" readonly class="form-control"></textarea>
+												<textarea name="address" id="address" cols="30" rows="5"  class="form-control"></textarea>
 											</div>
 										</div>
 									</div>
@@ -144,7 +145,7 @@ $category = mysqli_query($conn,"SELECT * from category");
                                         <div class="row">
 											<div class="col-sm-12">
 												<label>Product name</label>
-												<input type="text" placeholder="Kopyov" name="name" id="name" class="form-control" readonly>
+												<input type="text" placeholder="Kopyov" name="name" id="name" class="form-control" >
 											</div>
 										</div>
 									</div>
@@ -152,12 +153,25 @@ $category = mysqli_query($conn,"SELECT * from category");
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6">
-												<label>Categories</label><br>
-                                                <input type="text" placeholder="Kopyov" name="category" id="category" class="form-control" readonly>
+                                            <label>Categories</label><br>
+                                                <?php while($row = mysqli_fetch_assoc($category)){
+                                                    $category_id = $row['id'];
+                                                    $category_name = $row['name'];
+                                                    $category_owner = $row['owner'];
+                                                    ?>
+												<div class="form-check form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="radio" class="form-check-input" name="category" id="category<?=$category_id?>" value="<?=$category_id?>" onclick="change_owner('<?=$category_owner?>')" >
+                                                        <?=$category_name?>
+                                                    </label>
+                                                </div>
+                                                <?php } ?>
 											</div>
                                             <div class="col-sm-6">
 												<label>Owner</label>
-                                                <input type="text" placeholder="Kopyov" name="owner" id="owner" class="form-control" readonly>
+                                                <div id="owner">
+                                                  
+                                                </div>
 											</div>
 										</div>
 									</div>
@@ -166,17 +180,17 @@ $category = mysqli_query($conn,"SELECT * from category");
 										<div class="row">
 											<div class="col-sm-4">
 												<label>Size</label>
-												<input type="text" name="size" placeholder="Size" class="form-control" id="size" readonly>
+												<input type="text" name="size" placeholder="Size" class="form-control" id="size" >
 											</div>
 
 											<div class="col-sm-4">
 												<label>Year</label>
-												<input type="text" placeholder="Year" name="year" class="form-control" id="year" readonly>
+												<input type="text" placeholder="Year" name="year" class="form-control" id="year" >
 											</div>
 
 											<div class="col-sm-4">
 												<label>Material</label>
-												<input type="text" placeholder="Material" name="material" class="form-control" id="material" readonly>
+												<input type="text" placeholder="Material" name="material" class="form-control" id="material" >
 											</div>
 										</div>
 									</div>
@@ -185,18 +199,18 @@ $category = mysqli_query($conn,"SELECT * from category");
 										<div class="row">
 											<div class="col-sm-4">
 												<label>Technique</label>
-												<input type="text" placeholder="Technique" name="technique" class="form-control" id="technique" readonly>
+												<input type="text" placeholder="Technique" name="technique" class="form-control" id="technique" >
 												
 											</div>
 
 											<div class="col-sm-4">
 												<label>Price</label>
-												<input type="text" name="price" placeholder="Price"  class="form-control" id="price" readonly>
+												<input type="text" name="price" placeholder="Price"  class="form-control" id="price" >
 												
 											</div>
                                             <div class="col-sm-4">
 												<label>Currency</label>
-                                                <input type="text" name="currency" placeholder="Price"  class="form-control" id="currency" readonly>
+                                                <input type="text" name="currency" placeholder="Price"  class="form-control" id="currency" >
 											</div>
 										</div>
 									</div>
@@ -204,7 +218,7 @@ $category = mysqli_query($conn,"SELECT * from category");
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <label for="">Description</label>
-                                                <textarea name="description" class="form-control" id="description" cols="30" rows="7" readonly></textarea>
+                                                <textarea name="description" class="form-control" id="description" cols="30" rows="7" ></textarea>
 
                                             </div>
 
@@ -358,13 +372,34 @@ function loadData() {
                     url = '../../global_assets/images/foto_produk/'+foto[i];
                     $('#view_images').append('<img src="'+url+'" width="150px" height="100px" > &nbsp;&nbsp;');
                 }
+                if(response.category_name == "Contemporary"){
+                var data = ['Direct Artist','Individual','Company','Collector','Art Gallery'];
+                
+            }else{
+                var data = ['Individual','Company','Collector','Antique Shops']
+            }
+
+            var row = '';
+
+            for(var i =0; i<data.length; i++){
+                row += '<div class="form-check form-check-inline">'
+                            +'<label class="form-check-label">'
+                            +'<input type="radio" class="form-check-input" name="owner" value="'+data[i]+'" id="'+data[i].replace(/ /g, "")+'">'
+                            + data[i] +' </label> </div>';
+            }
+            $('#owner').html('');
+            $('#owner').html(row);
+            var owner = response.owner;
+            $('#'+owner.replace(/ /g, "")).attr('checked','checked');
+        
             
             $('#vendor').val(response.fullname);
             $('#email').val(response.email);
             $('#phone').val(response.phone);
             $('#address').val(response.address);
             $('#name').val(response.name);
-            $('#category').val(response.category_name);
+            // $('#category').val(response.category_name);
+            $("#category"+response.category_id).attr('checked', 'checked');
             $('#owner').val(response.ownerr);
             $('#size').val(response.size);
             $('#year').val(response.year);
@@ -375,6 +410,8 @@ function loadData() {
             $('#description').val(response.description);
             $('#public_price').val(response.public_price);
             $('#profit').val(response.profit);
+            var c = "select option[value='"+response.status+"']";
+            $(c).attr("selected","selected");
             
             
             $('#btn_edit').attr('onclick', 'edit(' + id + ')');
@@ -431,6 +468,26 @@ function loadData() {
        $('#public_price').val(profit);
    }
 
+   
+function change_owner(owner){
+    // if(owner == "Contemporary"){
+    //     var data = ['Direct Artist','Individual','Company','Collector','Art Gallery'];
+        
+    // }else{
+    //     var data = ['Individual','Company','Collector','Antique Shops']
+    // }
+    
+    data = owner.split(',');
+    var row = '';
+        for(var i =0; i<data.length; i++){
+            row += '<div class="form-check form-check-inline">'
+                        +'<label class="form-check-label">'
+                        +'<input type="radio" class="form-check-input" name="owner" value="'+data[i]+'" >'
+                        + data[i] +' </label> </div>';
+        }
+        $('#owner').html('');
+        $('#owner').html(row);
+}
    
    function edit(id) {
       $.ajax({
