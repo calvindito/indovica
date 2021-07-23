@@ -121,11 +121,11 @@ $category = mysqli_query($conn,"SELECT * from category");
                                         <div class="row">
 											<div class="col-sm-6">
 												<label>Vendor</label>
-												<input type="text" placeholder="Kopyov" name="vendor" id="vendor" class="form-control" >
+												<input type="text" placeholder="" name="vendor" id="vendor" class="form-control" >
 											</div>
                                             <div class="col-sm-6">
 												<label>Email</label>
-												<input type="text" placeholder="Kopyov" name="email" id="email" class="form-control" >
+												<input type="text" placeholder="" name="email" id="email" class="form-control" >
 											</div>
 										</div>
 									</div>
@@ -133,7 +133,7 @@ $category = mysqli_query($conn,"SELECT * from category");
                                         <div class="row">
 											<div class="col-sm-6">
 												<label>Phone</label>
-												<input type="text" placeholder="Kopyov" name="phone" id="phone" class="form-control" >
+												<input type="text" placeholder="" name="phone" id="phone" class="form-control" >
 											</div>
                                             <div class="col-sm-6">
 												<label>Adress</label>
@@ -172,7 +172,7 @@ $category = mysqli_query($conn,"SELECT * from category");
                                         <div class="row">
 											<div class="col-sm-12">
 												<label id="nameproduct">Product name</label>
-												<input type="text" placeholder="Kopyov" name="name" id="name" class="form-control" >
+												<input type="text" placeholder="" name="name" id="name" class="form-control" >
 											</div>
 										</div>
 									</div>

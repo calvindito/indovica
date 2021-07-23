@@ -123,7 +123,7 @@ $category = mysqli_query($conn,"SELECT * from category");
                                         <div class="row">
 											<div class="col-sm-12">
 												<label id="nameproduct">Product name</label>
-												<input type="text" placeholder="Kopyov" name="name" id="name" class="form-control">
+												<input type="text" placeholder="" name="name" id="name" class="form-control">
 											</div>
 										</div>
 									</div>
