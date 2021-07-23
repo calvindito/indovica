@@ -5,6 +5,12 @@ session_start();
 extract($_POST);
 
 $id                = $_GET['id'];
+if(!isset($_POST['year'])){
+   $year = "0";
+}else if(!isset($_POST['technique'])){
+   $technique = "-";
+
+}
 if(isset($_POST['profit'])){
    $profit = $_POST['profit'];
    $public_price = $_POST['public_price'];

@@ -12,7 +12,7 @@ $where_like = [
     'name',
     'categories',
     'owner',
-    'year',
+    'currency',
     'price',
     'status'
 ];
@@ -24,16 +24,16 @@ $order    = $where_like[$response['order'][0]['column']];
 $dir      = $response['order'][0]['dir'];
 $search   = $response['search']['value'];
 
-$total_data = mysqli_query($conn, "SELECT product.id, adminonline.fullname, category.name as category_name,product.image, product.name , product.category_id, product.owner, product.year, product.price, product.status FROM product join adminonline on vendor_id = adminonline.id join category on category.id = category_id");
+$total_data = mysqli_query($conn, "SELECT product.id, adminonline.fullname, category.name as category_name,product.image, product.name , product.category_id, product.owner, product.currency, product.price, product.status FROM product join adminonline on vendor_id = adminonline.id join category on category.id = category_id");
 
 if(empty($search)) {
-    $query_data = mysqli_query($conn, "SELECT product.id, adminonline.fullname, category.name as category_name,product.image, product.name , product.category_id, product.owner, product.year, product.price, product.status FROM product join adminonline on vendor_id = adminonline.id join category on category.id = category_id  ORDER BY $order $dir LIMIT $start, $length");
+    $query_data = mysqli_query($conn, "SELECT product.id, adminonline.fullname, category.name as category_name,product.image, product.name , product.category_id, product.owner, product.currency, product.price, product.status FROM product join adminonline on vendor_id = adminonline.id join category on category.id = category_id  ORDER BY $order $dir LIMIT $start, $length");
 
-    $total_filtered = mysqli_query($conn, "SELECT product.id, adminonline.fullname, category.name as category_name,product.image, product.name , product.category_id, product.owner, product.year, product.price, product.status FROM product join adminonline on vendor_id = adminonline.id join category on category.id = category_id");
+    $total_filtered = mysqli_query($conn, "SELECT product.id, adminonline.fullname, category.name as category_name,product.image, product.name , product.category_id, product.owner, product.currency, product.price, product.status FROM product join adminonline on vendor_id = adminonline.id join category on category.id = category_id");
 } else {
-    $query_data = mysqli_query($conn, "SELECT product.id, adminonline.fullname,category.name as category_name, product.image, product.name , product.category_id, product.owner, product.year, product.price, product.status FROM product join adminonline on vendor_id = adminonline.id join category on category.id = category_id where adminonline.fullname LIKE '%$search%' OR product.name LIKE '%$search%' ORDER BY $order $dir LIMIT $start, $length");
+    $query_data = mysqli_query($conn, "SELECT product.id, adminonline.fullname,category.name as category_name, product.image, product.name , product.category_id, product.owner, product.currency, product.price, product.status FROM product join adminonline on vendor_id = adminonline.id join category on category.id = category_id where adminonline.fullname LIKE '%$search%' OR product.name LIKE '%$search%' ORDER BY $order $dir LIMIT $start, $length");
 
-    $total_filtered = mysqli_query($conn, "SELECT product.id, adminonline.fullname,category.name as category_name, product.image, product.name , product.category_id, product.owner, product.year, product.price, product.status FROM product join adminonline on vendor_id = adminonline.id join category on category.id = category_id where adminonline.fullname LIKE '%$search%' OR product.name LIKE '%$search%'");
+    $total_filtered = mysqli_query($conn, "SELECT product.id, adminonline.fullname,category.name as category_name, product.image, product.name , product.category_id, product.owner, product.currency, product.price, product.status FROM product join adminonline on vendor_id = adminonline.id join category on category.id = category_id where adminonline.fullname LIKE '%$search%' OR product.name LIKE '%$search%'");
 }
 
 $response['data'] = [];
@@ -69,8 +69,8 @@ if($query_data) {
             $row['name'],
             $row['category_name'],
             $row['owner'],
-            $row['year'],
-            $row['price'],
+            $row['currency'],
+            number_format($row['price']),
             $status,
             $aksi
         ];

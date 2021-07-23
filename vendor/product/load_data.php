@@ -10,7 +10,7 @@ $where_like = [
     'name',
     'categories',
     'owner',
-    'year',
+    'material',
     'price',
     'status'
 ];
@@ -22,16 +22,16 @@ $order    = $where_like[$response['order'][0]['column']];
 $dir      = $response['order'][0]['dir'];
 $search   = $response['search']['value'];
 
-$total_data = mysqli_query($conn, "SELECT product.id, image, product.name , category.name as category_id, owner, year, price, status FROM product join category on category.id = category_id where vendor_id = '$id_vendor'");
+$total_data = mysqli_query($conn, "SELECT product.id, image, product.name , category.name as category_id, product.owner, material, price, status FROM product join category on category.id = category_id where vendor_id = '$id_vendor'");
 
 if(empty($search)) {
-    $query_data = mysqli_query($conn, "SELECT product.id, image, product.name , category.name as category_id, owner, year, price, status FROM product join category on category.id = category_id where vendor_id = '$id_vendor' ORDER BY $order $dir LIMIT $start, $length");
+    $query_data = mysqli_query($conn, "SELECT product.id, image, product.name , category.name as category_id, product.owner, material, price, status FROM product join category on category.id = category_id where vendor_id = '$id_vendor' ORDER BY $order $dir LIMIT $start, $length");
 
-    $total_filtered = mysqli_query($conn, "SELECT product.id, image, product.name , category.name as category_id, owner, year, price, status FROM product join category on category.id = category_id where vendor_id = '$id_vendor'");
+    $total_filtered = mysqli_query($conn, "SELECT product.id, image, product.name , category.name as category_id, product.owner, material, price, status FROM product join category on category.id = category_id where vendor_id = '$id_vendor'");
 } else {
-    $query_data = mysqli_query($conn, "SELECT product.id, image, product.name , category.name as category_id, owner, year, price, status FROM product join category on category.id = category_id where vendor_id = '$id_vendor' and product.name LIKE '%$search%'  ORDER BY $order $dir LIMIT $start, $length");
+    $query_data = mysqli_query($conn, "SELECT product.id, image, product.name , category.name as category_id, product.owner, material, price, status FROM product join category on category.id = category_id where vendor_id = '$id_vendor' and product.name LIKE '%$search%'  ORDER BY $order $dir LIMIT $start, $length");
 
-    $total_filtered = mysqli_query($conn, "SELECT product.id, image, product.name , category.name as category_id, owner, year, price, status FROM product join category on category.id = category_id where vendor_id = '$id_vendor' and product.name  LIKE '%$search%' ");
+    $total_filtered = mysqli_query($conn, "SELECT product.id, image, product.name , category.name as category_id, product.owner, material, price, status FROM product join category on category.id = category_id where vendor_id = '$id_vendor' and product.name  LIKE '%$search%' ");
 }
 
 $response['data'] = [];
@@ -66,7 +66,7 @@ if($query_data) {
             $row['name'],
             $row['category_id'],
             $row['owner'],
-            $row['year'],
+            $row['material'],
             number_format($row['price']),
             $status,
             $aksi

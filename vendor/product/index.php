@@ -60,7 +60,7 @@ $category = mysqli_query($conn,"SELECT * from category");
                                     <th>Name</th>
 									<th>Categories</th>
 									<th>Owner</th>
-                                    <th>Year</th>
+                                    <th>Material</th>
                                     <th>Price</th>
                                     <th>Status</th>
                                     <th>#</th>
@@ -99,14 +99,7 @@ $category = mysqli_query($conn,"SELECT * from category");
                                                 </div>
 											</div>
                                         </div>
-                                    <div class="form-group">
-                                        <div class="row">
-											<div class="col-sm-12">
-												<label>Product name</label>
-												<input type="text" placeholder="Kopyov" name="name" id="name" class="form-control">
-											</div>
-										</div>
-									</div>
+                               
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-12">
@@ -118,11 +111,19 @@ $category = mysqli_query($conn,"SELECT * from category");
                                                     ?>
 												<div class="form-check form-check-inline">
                                                     <label class="form-check-label">
-                                                        <input type="radio" class="form-check-input" name="category" id="category<?=$category_id?>" value="<?=$category_id?>" onclick="change_owner('<?=$category_owner?>')" >
+                                                        <input type="radio" class="form-check-input" name="category" id="category<?=$category_id?>" value="<?=$category_id?>" onclick="change_owner('<?=$category_owner?>','<?=$category_name?>')" >
                                                         <?=$category_name?>
                                                     </label>
                                                 </div>
                                                 <?php } ?>
+											</div>
+										</div>
+									</div>
+                                    <div class="form-group">
+                                        <div class="row">
+											<div class="col-sm-12">
+												<label id="nameproduct">Product name</label>
+												<input type="text" placeholder="Kopyov" name="name" id="name" class="form-control">
 											</div>
 										</div>
 									</div>
@@ -144,7 +145,7 @@ $category = mysqli_query($conn,"SELECT * from category");
 												<input type="text" name="size" placeholder="Size" class="form-control" id="size">
 											</div>
 
-											<div class="col-sm-4">
+											<div class="col-sm-4" id="tahun">
 												<label>Year</label>
 												<input type="text" placeholder="Year" name="year" class="form-control" id="year">
 											</div>
@@ -158,7 +159,7 @@ $category = mysqli_query($conn,"SELECT * from category");
 
 									<div class="form-group">
 										<div class="row">
-											<div class="col-sm-4">
+											<div class="col-sm-4" id="teknik">
 												<label>Technique</label>
 												<input type="text" placeholder="Technique" name="technique" required class="form-control" id="technique">
 												
@@ -240,14 +241,22 @@ $category = mysqli_query($conn,"SELECT * from category");
 })
    });
 
-function change_owner(owner){
-    // if(owner == "Contemporary"){
-    //     var data = ['Direct Artist','Individual','Company','Collector','Art Gallery'];
+function change_owner(owner,category){
+
+     if(category == "Vintage"){
+       $('#teknik').hide(); 
+       $('#nameproduct').html('Types of goods');
+     }else if(category == "Small & Medium Enterprise"){
+        $('#teknik').hide();
+        $('#tahun').hide();
         
-    // }else{
-    //     var data = ['Individual','Company','Collector','Antique Shops']
-    // }
-    
+       $('#nameproduct').html('Types of goods');
+
+     }else{
+        $('#teknik').show();
+        $('#tahun').show();
+       $('#nameproduct').html('Painting Title');
+     }
     data = owner.split(',');
     var row = '';
         for(var i =0; i<data.length; i++){
@@ -275,7 +284,7 @@ function loadData() {
             { name: 'name', className: 'text-center align-middle' },
             { name: 'categories', className: 'text-center align-middle' },
             { name: 'owner', searchable: false, className: 'text-center align-middle' },
-            { name: 'year', searchable: false, className: 'text-center align-middle' },
+            { name: 'material', searchable: false, className: 'text-center align-middle' },
             { name: 'price', searchable: false, className: 'text-center align-middle' },
             { name: 'status', searchable: false, className: 'text-center align-middle' },
             { name: 'action', searchable: false, orderable: false, className: 'text-center align-middle' }
@@ -315,6 +324,18 @@ function loadData() {
                             +'<label class="form-check-label">'
                             +'<input type="radio" class="form-check-input" name="owner" value="'+data[i]+'" id="'+data[i].replace(/ /g, "")+'">'
                             + data[i] +' </label> </div>';
+            }
+            if(response.category_name== "Vintage"){
+                $('#teknik').hide(); 
+                $('#nameproduct').html('Types of goods');
+            }else if(response.category_name == "Small & Medium Enterprise"){
+                $('#teknik').hide();
+                $('#tahun').hide();
+                $('#nameproduct').html('Types of goods');
+            }else{
+                $('#teknik').show();
+                $('#tahun').show();
+                $('#nameproduct').html('Painting Title');
             }
             $('#owner').html('');
             $('#owner').html(row);
