@@ -15,6 +15,7 @@ if(isset($_POST['login'])) {
 
 	if($query) {
 		if(password_verify($password, $query['password'])) {
+
 			$customer_id = $query['id'];
 			mysqli_query($conn, "UPDATE cart SET customer_id = '$customer_id' WHERE customer_id = '$session_id'");
 
@@ -36,6 +37,27 @@ if(isset($_POST['login'])) {
 }
 
 
+if(isset($_POST['add_to_cart'])) {
+	$product_id = $_POST['produk'];
+	$customer_id= $_SESSION['id'];
+	if($_SESSION['id']){
+		 $sql = "SELECT * FROM cart WHERE product_id = $product_id AND customer_id = '$customer_id' ";
+		 $check      = mysqli_fetch_assoc(mysqli_query($conn, $sql));
+		 if($check) {
+		 $id_cart = $check['id'];
+		 $qty     = $check['qty'] + 1;
+		 mysqli_query($conn, "UPDATE cart SET qty = $qty WHERE id=$id_cart");
+		 } else {
+			 mysqli_query($conn, "INSERT INTO cart VALUES ('','$customer_id', $product_id ,1)");
+ 
+		 }
+		 echo '<script>alert("Success")</script>';
+		 echo "<script>document.location.href='index.php'</script>";   
+	 }else{
+		 echo '<script>alert("You must be logged in!")</script>';
+		 echo "<script>document.location.href='index.php'</script>";
+	 }  
+  }
 ?>
 	
 <style>
@@ -93,6 +115,25 @@ body {
     flex: 100%;
     max-width: 100%;
   }
+  .oc-item{
+    
+      width:200px;
+  }
+  .owl-item{
+      width:200px !important;
+  }
+  .owl-carousel{
+      padding-left:5px !important;
+      margin-left:20px  !important;
+      width:90%;
+  }
+  .product-desc{
+      margin:6px !important;
+  }
+  .foto{
+      height:200px;
+  }
+ 
 }
 </style>
 
@@ -104,7 +145,7 @@ body {
 						<div class="swiper-slide dark">
 							<div class="container">
 								<div class="slider-caption slider-caption-center">
-									<h2 data-animate="fadeInUp">Vintage & Contemporary Art</h2>
+									<h2 style="font-size:35px; font-wight:1000" data-animate="fadeInUp">VINTAGE, CONTEMPORARY ART <br>& SME<p style="font-size:28px;display:inline">s</p> FLAGSHIP PRODUCT</h2>
 									<p class="mb-4" data-animate="fadeInUp" data-delay="100"></p>
 									<div>
 										<a href="product.php" data-animate="fadeInUp" data-delay="200" class="button button-large button-white button-light">Shop Now</a>
@@ -226,27 +267,24 @@ body {
 									   }
 								 
 								?>
-						<div class="oc-item">
+						<div class="oc-item" style=" box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 7px 0 rgba(0, 0, 0, 0.19);">
 							<div class="product">
 								<div class="product-image">
 									<?php for($i=0;$i<count($product_image);$i++){?>
-									<a href="#"><img src="<?=$base_url?>global_assets/images/foto_produk/<?=$product_image[$i]?>" alt="Round Neck T-shirts" style="height:150px"></a>
+									<a href="#"><img src="<?=$base_url?>global_assets/images/foto_produk/<?=$product_image[$i]?>" class="foto"  style="height:150px"></a>
 									<?php } ?>
-									<div class="bg-overlay">
-										<div class="bg-overlay-content align-items-end justify-content-between" data-hover-animate="fadeIn" data-hover-speed="400">
-											<a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-basket"></i></a>
-											<a href="detail_product.php?kode=<?=$product_id?>" class="btn btn-dark" ><i class="icon-line-expand"></i></a>
-										</div>
-										<div class="bg-overlay-bg bg-transparent"></div>
-									</div>
+								
 								</div>
-								<div class="product-desc">
-									<div class="product-title mb-1"><?=$product_name?></a></h3></div><br>
-									<div class="product-price font-primary"><ins>IDR <?=number_format($harga_idr)?></ins></div>
+								<div class="product-desc" style="color:black;margin:8px">
+								    
+									<div class="product-title mb-1"><b><?=ucfirst($product_name)?></b></div>
+									<div ><b>IDR</b> <?=number_format($harga_idr)?></div>
 									
-									<div class="product-price font-primary"><ins>EURO <?=number_format($harga_euro)?></ins></div>
+									<div><b>EURO</b> <?=number_format($harga_euro)?></div>
 									
-									<div class="product-price font-primary"><ins>USD <?=number_format($harga_usd)?></ins></div>
+									<div ><b>USD</b> <?=number_format($harga_usd)?></div>
+									<div>	<a href="detail_product.php?kode=<?=$product_id?>" class="btn btn-dark" style="font-size:12px;margin-top:5px;width:100%">Detail</a></div>
+									<div>	<form method="post" action="index.php"><input type="text" hidden value="<?=$product_id?>" name="produk"><button type="submit" class="btn btn-danger" name="add_to_cart" style="font-size:12px;margin-top:5px;width:100%">Add To Cart</button></form></div>
 								</div>
 							</div>
 						</div>
@@ -334,28 +372,30 @@ body {
 									   
 								   }
 								?>
-						<div class="oc-item">
+						<div class="oc-item" style="box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 7px 0 rgba(0, 0, 0, 0.19);">
+						    
 							<div class="product">
 								<div class="product-image">
 									<?php for($i=0;$i<count($product_image);$i++){?>
-									<a href="#"><img src="<?=$base_url?>global_assets/images/foto_produk/<?=$product_image[$i]?>" alt="Round Neck T-shirts" style="height:150px"></a>
+									<a href="detail_product.php?kode=<?=$product_id?>"><img src="<?=$base_url?>global_assets/images/foto_produk/<?=$product_image[$i]?>" class="foto"  style="height:150px"></a>
 									<?php } ?>
-									<div class="bg-overlay">
-										<div class="bg-overlay-content align-items-end justify-content-between" data-hover-animate="fadeIn" data-hover-speed="400">
-											<a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-basket"></i></a>
-											<a href="detail_product.php?kode=<?=$product_id?>" class="btn btn-dark" data-lightbox="ajax"><i class="icon-line-expand"></i></a>
-										</div>
-										<div class="bg-overlay-bg bg-transparent"></div>
-									</div>
+								
 								</div>
-								<div class="product-desc">
-									<div class="product-title mb-1"><?=$product_name?></a></h3></div><br>
-									<div class="product-price font-primary"><ins>IDR <?=number_format($harga_idr)?></ins></div>
+								
+								<div class="product-desc" style="color:black;margin:8px">
+								    
+									<div class="product-title mb-1"><b><?=ucfirst($product_name)?></b></div>
+									<div ><b>IDR</b> <?=number_format($harga_idr)?></div>
 									
-									<div class="product-price font-primary"><ins>EURO <?=number_format($harga_euro)?></ins></div>
+									<div><b>EURO</b> <?=number_format($harga_euro)?></div>
 									
-									<div class="product-price font-primary"><ins>USD <?=number_format($harga_usd)?></ins></div>
+									<div ><b>USD</b> <?=number_format($harga_usd)?></div>
+									<div>	<a href="detail_product.php?kode=<?=$product_id?>" class="btn btn-dark" style="font-size:12px;margin-top:5px;width:100%">Detail</a></div>
+									
+									<div>	<form method="post" action="index.php"><input type="text" hidden value="<?=$product_id?>" name="produk"><button type="submit" class="btn btn-danger" name="add_to_cart" style="font-size:12px;margin-top:5px;width:100%">Add To Cart</button></form></div>
 								</div>
+								
+									
 							</div>
 						</div>
 						<?php }} ?>

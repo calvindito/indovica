@@ -31,6 +31,19 @@ $cart = mysqli_query($conn,"SELECT *, cart.id as id_cart FROM cart join product 
 				<div class="container-fluid topmargin">
 					<div class="row">
 						<div class="col-12">
+							<div class="col-2">
+							<div class="form-group">
+								<label for="">Currency</label>
+								<br>
+								<select name="currency" id="currency2" class="custom-select" onchange="change_currency(this.value)">
+									<option value="IDR">IDR</option>
+									<option value="USD">USD</option>
+									<option value="EURO">EURO</option>
+								</select>
+
+							</div>
+							</div>
+							
                         <table class="table cart mb-5">
 						<thead>
 							<tr>
@@ -48,9 +61,42 @@ $cart = mysqli_query($conn,"SELECT *, cart.id as id_cart FROM cart join product 
                             while($row = mysqli_fetch_assoc($cart)){
                                 $cart_id = $row['id_cart'];
                                 $image = explode(',',$row['image']);
-                                $total_cart = $row['qty']*$row['price'];
-								$grand_total += $total_cart;
-                                ?>
+    							$name 	= $row['name'];
+    							$qty 	= $row['qty'];
+                                $product_price 	= $row['public_price'];
+                                $currency_price = $row['currency'];
+                                                
+                                                       if($currency != 'IDR' && $currency_price != 'IDR' ){
+                                                      
+                                                    		$currency_sql 	= mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency_price'"));
+                                                    		$nominal        = $currency_sql['nominal'];
+                                                    		$idr            = $product_price * $nominal ;
+                                                            
+                                                    		$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency'"));
+                                                    		$nominal2        = $currency2_sql['nominal'];
+                                                    		$harga          = $idr / $nominal2;
+                                                    		$simbol         = $currency2_sql['simbol'];
+                                                       }else if($currency == 'IDR' && $currency_price != 'IDR'){
+                                                    		$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency_price'"));
+                                                    		$nominal2        = $currency2_sql['nominal'];
+                                                    		$harga          = $product_price * $nominal2;
+                                                    		$simbol         = 'Rp';
+                                                           
+                                                       }else if($currency != 'IDR' && $currency_price == 'IDR'){
+                                                    		$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency'"));
+                                                    		$nominal2        = $currency2_sql['nominal'];
+                                                    		$harga          = $product_price / $nominal2;
+                                                    		$simbol         = $currency2_sql['simbol'];
+                                                           
+                                                       }
+                                                    	   else{
+                                                    	   $simbol = 'Rp';
+                                                    	   $harga = $product_price;
+                                                       }
+    													$total_cart = ($qty * $harga);
+														$grand_total += $total_cart;
+    												?>
+                           
 							<tr class="cart_item" id="no<?=$cart_id?>">
 								<td class="cart-product-remove">
 									<a href="#" onclick="remove(<?=$cart_id?>)" class="remove" title="Remove this item"><i class="icon-trash2"></i></a>
@@ -65,19 +111,19 @@ $cart = mysqli_query($conn,"SELECT *, cart.id as id_cart FROM cart join product 
 								</td>
 
 								<td class="cart-product-price">
-									<span class="amount">RP <?=number_format($row['price'])?></span>
+									<span class="amount"><?=$simbol?> <?=number_format($harga)?></span>
 								</td>
 
 								<td class="cart-product-quantity">
 									<div class="quantity">
 										<input type="button" value="-" class="minus" onclick="minus(<?=$cart_id?>)">
-										<input type="text" id="qty<?=$cart_id?>" name="quantity" value="<?=$row['qty']?>" class="qty" />
+										<input type="text" readonly id="qty<?=$cart_id?>" name="quantity" value="<?=$row['qty']?>" class="qty" />
 										<input type="button" value="+" class="plus" onclick="plus(<?=$cart_id?>)">
 									</div>
 								</td>
 
 								<td class="cart-product-subtotal">
-									<span class="amount" id="total<?=$cart_id?>">RP <?=number_format($total_cart)?></span>
+									<span class="amount" id="total<?=$cart_id?>"><?=$simbol?> <?=number_format($total_cart)?></span>
 								</td>
 							</tr>
                             <?php } } ?>
@@ -86,7 +132,7 @@ $cart = mysqli_query($conn,"SELECT *, cart.id as id_cart FROM cart join product 
 								<td colspan="6">
 									<div class="row justify-content-between py-2 col-mb-30">
 										<div class="col-lg-auto pl-lg-0" >
-											<h4 id="grand">Grand Total : Rp <?=number_format($grand_total)?></h4> 
+											<h4 id="grand">Grand Total : <?=$simbol?> <?=number_format($grand_total)?></h4> 
 										</div>
 										<div class="col-lg-auto pr-lg-0">
 											<!-- <a href="#" class="button button-3d m-0">Update Cart</a> -->
@@ -106,11 +152,8 @@ $cart = mysqli_query($conn,"SELECT *, cart.id as id_cart FROM cart join product 
 
 			</div>
 		</section><!-- #content end -->
-        <?php
-include 'footer.php';
-?>
+        <?php include 'footer.php'; ?>
 
-<script>
 
 <script>
 function numberWithCommas(x) {
@@ -144,8 +187,8 @@ function minus(id){
 	 dataType:'JSON',
       success: function(data) {
 		  if(data.status=='200'){
-			$("#total"+id).html("Rp "+data.total);
-			$("#grand").html("Grand Total : Rp."+numberWithComas(data.grand));
+			$("#total"+id).html(data.simbol+" "+data.total);
+			$("#grand").html("Grand Total : "+data.simbol+" "+numberWithComas(data.grand));
 		  }
       }
     })
@@ -161,9 +204,8 @@ function plus(id){
 	 dataType:'JSON',
       success: function(data) {
 		  if(data.status=='200'){
-
-			$("#total"+id).html("Rp "+numberWithComas(data.total));
-			$("#grand").html("Grand Total : Rp."+numberWithComas(data.grand));
+			$("#total"+id).html(data.simbol+" "+data.total);
+			$("#grand").html("Grand Total : "+data.simbol+" "+numberWithComas(data.grand)
 		  }
       }
     })

@@ -115,6 +115,19 @@
 					}
             	});
 		}
+
+		function change_currency(){
+		    var kodecurrency = $('#currency2').val();
+			$.ajax({
+					type: 'POST',
+					url: "bahasa.php",
+					data: {kodec:kodecurrency},
+					dataType: 'JSON',
+					success: function(data) {
+						location.reload();
+					}
+            	});
+		}
 		  
 
 	</script>

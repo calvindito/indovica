@@ -338,7 +338,7 @@ if(isset($_SESSION['id'])){
                                             <?php } ?>
                                         </div>
                                         <div class="top-cart-action">
-                                            <span class="top-checkout-price font-weight-semibold text-dark">Rp
+                                            <span class="top-checkout-price font-weight-semibold text-dark"><?=$simbol?>
                                                 <?= number_format($total_cart); ?></span>
                                             <a href="cart.php"><button class="button button-dark button-small m-0">View
                                                     Cart</button></a>
