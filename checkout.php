@@ -195,7 +195,7 @@ if(isset($_POST['submit_order'])) {
       $address_id         = mysqli_insert_id($conn);
       $tanggal            = date('Y-m-d H:i:s');
       $subtotal           = $total;
-      $insert_transaction = mysqli_query($conn, "INSERT INTO transaction VALUES ('','$tanggal' ,$customer_id, $address_id,$subtotal, 0, $subtotal, 'Bank', 'unpaid', 'pending')");
+      $insert_transaction = mysqli_query($conn, "INSERT INTO transaction VALUES ('','$tanggal' ,$customer_id, $address_id,'$currency',$subtotal, 0, $subtotal, 'Bank', 'unpaid', 'pending')");
       
 
       if($insert_transaction) {
@@ -212,8 +212,9 @@ if(isset($_POST['submit_order'])) {
          }
          mysqli_query($conn,"DELETE FROM cart where customer_id = $customer_id");
 
+	
          echo '<script>alert("Success!")</script>';
-         echo '<script>document.location.href="index.php"</script>';
+         echo '<script>document.location.href="checkout_paypal.php?kode='.$transaction_id.'"</script>';
       }
    }
 }
