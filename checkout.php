@@ -4,6 +4,7 @@ include 'header.php';
 
 
 $cart = mysqli_query($conn,"SELECT * FROM cart join product on product.id = cart.product_id where customer_id = $customer_id");
+$total=0;
 
 if(!isset($_SESSION['id']) || mysqli_num_rows($cart) < 1) {
     echo '<script>document.location.href="login.php"</script>';
@@ -89,16 +90,47 @@ if(!isset($_SESSION['id']) || mysqli_num_rows($cart) < 1) {
 									<tbody>
                                         <?php 
                                             if(mysqli_num_rows($cart) > 0){
-                                                $total = 0;
-                                                while($row = mysqli_fetch_assoc($cart)){
-                                                $cart_id = $row['id'];
-                                                $image = explode(',',$row['image']);
-                                                $subtotal = $row['qty']*$row['price'];
+                                                 while($row = mysqli_fetch_assoc($cart)){
+                                                        $image = explode(',',$row['image']);
+    							                        $name 	= $row['name'];
+    							                        $qty 	= $row['qty'];
+                                                        $product_price 	= $row['public_price'];
+                                                        $currency_price = $row['currency'];
+                                                
+                                                       if($currency != 'IDR' && $currency_price != 'IDR' ){
+                                                      
+                                                    		$currency_sql 	= mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency_price'"));
+                                                    		$nominal        = $currency_sql['nominal'];
+                                                    		$idr            = $product_price * $nominal ;
+                                                            
+                                                    		$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency'"));
+                                                    		$nominal2        = $currency2_sql['nominal'];
+                                                    		$harga          = $idr / $nominal2;
+                                                    		$simbol         = $currency2_sql['simbol'];
+                                                       }else if($currency == 'IDR' && $currency_price != 'IDR'){
+                                                    		$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency_price'"));
+                                                    		$nominal2        = $currency2_sql['nominal'];
+                                                    		$harga          = $product_price * $nominal2;
+                                                    		$simbol         = 'Rp';
+                                                           
+                                                       }else if($currency != 'IDR' && $currency_price == 'IDR'){
+                                                    		$currency2_sql = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM currency where name='$currency'"));
+                                                    		$nominal2        = $currency2_sql['nominal'];
+                                                    		$harga          = $product_price / $nominal2;
+                                                    		$simbol         = $currency2_sql['simbol'];
+                                                           
+                                                       }
+                                                    	   else{
+                                                    	   $simbol = 'Rp';
+                                                    	   $harga = $product_price;
+                                                       }
+    												
+                                                $subtotal = ($qty * $harga);
                                                 $total += $subtotal;
                                         ?>
 										<tr class="cart_item">
 											<td class="cart-product-thumbnail">
-												<a href="#"><img width="64" height="64" src="<?=$base_url?>assets/store/images/foto_produk/<?=$image[0]?>" alt="Pink Printed Dress"></a>
+												<a href="#"><img width="64" height="64" src="<?=$base_url?>global_assets/images/foto_produk/<?=$image[0]?>" alt="Pink Printed Dress"></a>
 											</td>
 
 											<td class="cart-product-name">
@@ -112,10 +144,10 @@ if(!isset($_SESSION['id']) || mysqli_num_rows($cart) < 1) {
 											</td>
 
 											<td class="cart-product-subtotal">
-												<span class="amount">RP <?=number_format($subtotal)?></span>
+												<span class="amount"><?=$simbol?> <?=number_format($subtotal)?></span>
 											</td>
 										</tr>
-                                        <?php } }?>
+                                        <?php }} ?>
 										
 									</tbody>
 
@@ -135,7 +167,7 @@ if(!isset($_SESSION['id']) || mysqli_num_rows($cart) < 1) {
 											</td>
 
 											<td class="border-top-0 cart-product-name">
-												<span class="amount">RP <?=number_format($total)?></span>
+												<span class="amount"><?=$simbol?> <?=number_format($total)?></span>
 											</td>
 										</tr>
 										<tr class="cart_item">
@@ -153,7 +185,7 @@ if(!isset($_SESSION['id']) || mysqli_num_rows($cart) < 1) {
 											</td>
 
 											<td class="cart-product-name">
-												<span class="amount color lead"><strong>RP <?=number_format($total)?></strong></span>
+												<span class="amount color lead"><strong><?=$simbol?> <?=number_format($total)?></strong></span>
 											</td>
 										</tr>
 									</tbody>
@@ -161,10 +193,13 @@ if(!isset($_SESSION['id']) || mysqli_num_rows($cart) < 1) {
 							</div>
 
 							<h4 style="padding-left:15px;padding-right:15px">Payment Method</h4>
-                            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bank" style="margin-left:15px;padding-right:15px">
-                            <label for="vehicle1"> Bank</label><br>
-                            <input type="checkbox" id="vehicle2" name="vehicle2" value="Paypal" style="margin-left:15px;padding-right:15px">
-                            <label for="vehicle2" > Paypal</label><br>
+							<div style="padding-left:15px;padding-right:15px">
+							<input type="radio" id="paypal" name="payment" value="bank">
+							  <label for="html">Bank</label> &nbsp;&nbsp;&nbsp;
+							  <input type="radio" id="paypal" name="payment" value="paypal" checked>
+							  <label for="css">Paypal</label><br>
+							</div>
+                           
 							<button type="submit"  class="button button-3d float-right">Place Order</button>
 						</div>
 					</div>
@@ -201,11 +236,11 @@ if(isset($_POST['submit_order'])) {
       if($insert_transaction) {
          $produk       = [];
          $transaction_id = mysqli_insert_id($conn);
-         $cart           = mysqli_query($conn, "SELECT cart.qty, product.price, product.id FROM cart LEFT JOIN product ON product.id = cart.product_id WHERE cart.customer_id = '$customer_id' GROUP BY cart.product_id");
+         $cart           = mysqli_query($conn, "SELECT cart.qty, product.public_price, product.currency product.id FROM cart LEFT JOIN product ON product.id = cart.product_id WHERE cart.customer_id = '$customer_id' GROUP BY cart.product_id");
          while($row = mysqli_fetch_assoc($cart)) {
                $product_id = $row['id'];
                $qty        = $row['qty'];
-               $price      = $row['price'];
+               $price      = $row['public_price'];
                $total      = $price * $qty;
 
                mysqli_query($conn, "INSERT INTO transaction_detail VALUES ('', $transaction_id, $product_id,$qty, $price)");

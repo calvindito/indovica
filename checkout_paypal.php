@@ -8,6 +8,9 @@ if(isset($_GET['kode'])){
     $array = mysqli_fetch_assoc(mysqli_query($conn,"SELECT total,currency from transaction where id = $kode"));
     $total = $array['total'];
     $currency = $array['currency'];
+    if($currency == 'EURO'){
+      $currency = 'EUR';
+    }
 }else{
     $total = 0;
 }
@@ -95,6 +98,7 @@ if(isset($_GET['kode'])){
 
     function initPayPalButton() {
         var currency = <?=json_encode($currency)?>;
+        var total = <?=json_encode($total)?>;
         
       paypal.Buttons({
         style: {
@@ -107,7 +111,7 @@ if(isset($_GET['kode'])){
         },
         createOrder: function(data, actions) {
           return actions.order.create({
-            purchase_units: [{"amount":{"currency_code":currency,"value":1}}]
+            purchase_units: [{"amount":{"currency_code":currency,"value":total}}]
           });
         },
 
