@@ -45,6 +45,10 @@ if(!isset($_SESSION['id']) || mysqli_num_rows($cart) < 1) {
 									<input type="text" id="shipping-form-phone" name="phone" value="" class="sm-form-control" />
 								</div>
                                 </div>
+								<div class="col-12 form-group">
+									<label for="shipping-form-address">Email:</label>
+									<input type="text" id="shipping-form-address" name="email" value="" class="sm-form-control" />
+								</div>
 
 								<div class="col-12 form-group">
 									<label for="shipping-form-address">Address:</label>
@@ -194,10 +198,10 @@ if(!isset($_SESSION['id']) || mysqli_num_rows($cart) < 1) {
 
 							<h4 style="padding-left:15px;padding-right:15px">Payment Method</h4>
 							<div style="padding-left:15px;padding-right:15px">
-							<input type="radio" id="paypal" name="payment" value="bank">
-							  <label for="html">Bank</label> &nbsp;&nbsp;&nbsp;
-							  <input type="radio" id="paypal" name="payment" value="paypal" checked>
-							  <label for="css">Paypal</label><br>
+							<input type="radio" id="bank" name="payment" value="bank">
+							  <label for="html" title="available for IDR">Bank</label> &nbsp;&nbsp;&nbsp;
+							  <input type="radio" id="paypal" name="payment" value="paypal" >
+							  <label for="css" title="available for USD & EURO">Paypal</label><br>
 							</div>
                            
 							<button type="submit"  class="button button-3d float-right">Place Order</button>
@@ -212,6 +216,21 @@ if(!isset($_SESSION['id']) || mysqli_num_rows($cart) < 1) {
 include 'footer.php';
 ?>
 
+<script>
+    var currency = <?=json_encode($currency)?>;
+    if(currency == 'IDR'){
+        document.getElementById("paypal").disabled = true;
+        
+        document.getElementById("bank").disabled = false;
+        
+        $("#bank").attr('checked', true);
+    }else{
+        document.getElementById("paypal").disabled = false;
+        document.getElementById("bank").disabled = true;
+          $("#paypal").attr('checked', true);
+    }
+    
+</script>
 
 <?php 
 
@@ -222,21 +241,24 @@ if(isset($_POST['submit_order'])) {
    $billing_province_id = $_POST['province'];
    $billing_city_id     = $_POST['city'];
    $billing_district_id = $_POST['district'];
+   $code               = date('YmdHis');
+   $billing_email = $_POST['email'];
+   $payment =  $_POST['payment'];
 
-   $insert_address      = mysqli_query($conn, "INSERT INTO address VALUES ('','$billing_name', '$billing_telepon', '$billing_address', '$billing_province_id', '$billing_city_id', '$billing_district_id', $customer_id)");
+   $insert_address      = mysqli_query($conn, "INSERT INTO address VALUES ('','$billing_name', '$billing_telepon', '$billing_address', '$billing_province_id', '$billing_city_id', '$billing_district_id','$billing_email', $customer_id)");
 
    if($insert_address) {
       
       $address_id         = mysqli_insert_id($conn);
       $tanggal            = date('Y-m-d H:i:s');
       $subtotal           = $total;
-      $insert_transaction = mysqli_query($conn, "INSERT INTO transaction VALUES ('','$tanggal' ,$customer_id, $address_id,'$currency',$subtotal, 0, $subtotal, 'Bank', 'unpaid', 'pending')");
+      $insert_transaction = mysqli_query($conn, "INSERT INTO transaction VALUES ('','$tanggal' ,$customer_id, $address_id,'$currency',$subtotal, 0, $subtotal, '$payment', 'unpaid', 'pending','$code',null,null,null)");
       
-
+	
       if($insert_transaction) {
          $produk       = [];
          $transaction_id = mysqli_insert_id($conn);
-         $cart           = mysqli_query($conn, "SELECT cart.qty, product.public_price, product.currency product.id FROM cart LEFT JOIN product ON product.id = cart.product_id WHERE cart.customer_id = '$customer_id' GROUP BY cart.product_id");
+         $cart           = mysqli_query($conn, "SELECT cart.qty, product.public_price, product.currency, product.id FROM cart LEFT JOIN product ON product.id = cart.product_id WHERE cart.customer_id = '$customer_id' GROUP BY cart.product_id");
          while($row = mysqli_fetch_assoc($cart)) {
                $product_id = $row['id'];
                $qty        = $row['qty'];
@@ -249,7 +271,27 @@ if(isset($_POST['submit_order'])) {
 
 	
          echo '<script>alert("Success!")</script>';
+         if($payment == 'IDR'){
+			$xendit = Invoice::create([
+				'external_id'          => $code,
+				'payer_email'          => $billing_email,
+				'description'          => 'indovica',
+				'amount'               => $subtotal,
+				'should_send_email'    => true,
+				'success_redirect_url' => $base_url . 'xendit_status_payment.php?id=' . $transaction_id . '&status=diproses',
+				'failure_redirect_url' => $base_url . 'xendit_status_payment.php?id=' . $transaction_id . '&status=dibatalkan'
+			 ]);
+ 
+			 $xendit_id    = $xendit['id'];
+			 $xendit_url   = $xendit['invoice_url'];
+			 $expired_date = $xendit['expiry_date'];
+			 $created_at   = date('Y-m-d H:i:s', strtotime('-1 days', strtotime($xendit_expired)));
+			 mysqli_query($conn, "UPDATE transaksi SET xendit_id = '$xendit_id', xendit_url = '$xendit_url', expired_date = '$expired_date' WHERE id = $transaction_id");
+            echo '<script>document.location.href="index.php"</script>';   
+         }else{
+             
          echo '<script>document.location.href="checkout_paypal.php?kode='.$transaction_id.'"</script>';
+         }
       }
    }
 }

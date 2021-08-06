@@ -6,6 +6,7 @@
         "league/omnipay": "^3.2",
         "omnipay/paypal": "^3.0",
         "nesbot/carbon": "^2.50",
-        "vlucas/phpdotenv": "^5.3"
+        "vlucas/phpdotenv": "^5.3",
+        "xendit/xendit-php": "^2.10"
     }
 }

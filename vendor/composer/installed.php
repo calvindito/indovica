@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'c8990c62504b53d85c160f8d86d0f5f4bcd1a8a0',
+    'reference' => '1fde7bda479dd02a1879ad59eba754cc25be7214',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'c8990c62504b53d85c160f8d86d0f5f4bcd1a8a0',
+      'reference' => '1fde7bda479dd02a1879ad59eba754cc25be7214',
     ),
     'clue/stream-filter' => 
     array (
@@ -329,6 +329,15 @@
       array (
       ),
       'reference' => 'b3eac5c7ac896e52deab4a99068e3f4ab12d9e56',
+    ),
+    'xendit/xendit-php' => 
+    array (
+      'pretty_version' => '2.10.0',
+      'version' => '2.10.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'e4df989aac9e71512a544e7cb69f863d51adcfe3',
     ),
   ),
 );
