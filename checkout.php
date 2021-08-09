@@ -252,7 +252,7 @@ if(isset($_POST['submit_order'])) {
       $address_id         = mysqli_insert_id($conn);
       $tanggal            = date('Y-m-d H:i:s');
       $subtotal           = $total;
-      $insert_transaction = mysqli_query($conn, "INSERT INTO transaction VALUES ('','$tanggal' ,$customer_id, $address_id,'$currency',$subtotal, 0, $subtotal, '$payment', 'unpaid', 'pending','$code',null,null,null)");
+      $insert_transaction = mysqli_query($conn, "INSERT INTO transaction VALUES ('','$tanggal' ,$customer_id, $address_id,'$currency',$subtotal, 0, $subtotal, '$payment',null, 'unpaid', 'pending','$code',null,null,null,null)");
       
 	
       if($insert_transaction) {
@@ -278,8 +278,8 @@ if(isset($_POST['submit_order'])) {
 				'description'          => 'indovica',
 				'amount'               => $subtotal,
 				'should_send_email'    => true,
-				'success_redirect_url' => $base_url . 'xendit_status_payment.php?id=' . $transaction_id . '&status=diproses',
-				'failure_redirect_url' => $base_url . 'xendit_status_payment.php?id=' . $transaction_id . '&status=dibatalkan'
+				'success_redirect_url' => $base_url . 'xendit_status_payment.php?id=' . $transaction_id . '&status=processed',
+				'failure_redirect_url' => $base_url . 'xendit_status_payment.php?id=' . $transaction_id . '&status=canceled'
 			 ]);
  
 			 $xendit_id    = $xendit['id'];
